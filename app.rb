@@ -2,15 +2,19 @@ require "sinatra"
 require "slim"
 require "sqlite3"
 require "bcrypt"
+require "date"
 require "sinatra/reloader"
 require_relative "./model.rb"
+
 
 enable :sessions
 
 db = database("./db/main.db")
 
 get('/') do 
-    slim(:"index", locals:{document_title: "Home"})
+    # 1 is temporary, should be replaced with session[:user_id]
+    print(followings_reviews(db, 1))
+    slim(:"index", locals:{document_title: "Home", followings_reviews: followings_reviews(db, 1)})
 end
 
 
@@ -22,29 +26,50 @@ get("/search") do
 
 end
 
-get("/users/:user_id") do
-
+get("admin") do
+    
 end
 
-get("/author/:author_id") do
+get("/review/:review_id") do
+
+    sought_id = params[:review_id].to_i
+    sought_review = review(db, sought_id)
+
+
+    if sought_review.empty?
+       return slim(:"error", locals:{document_title: "404", error_message: "The review specified is not found."})
+    end
+
+    media_name = media_id_to_name(db, sought_review[0]["id"])
+
+    slim(:"review", locals:{document_title: "Review: #{media_name}", review: sought_review[0], 
+        media_name: media_name, date: Time.at(sought_review["creation_date"]).to_datetime  
+    })
+end
+
+get("/user/:user_id") do
+    sought_id = params[:user_id].to_i
+    sought_user = users(db, [sought_id])[0]
+
+    if sought_user.empty?
+       return slim(:"error", locals:{document_title: "404", error_message: "The the user specified is not found."})
+    end
+
+    slim(:"user", locals: {document_title: sought_user["name"],
+        user: sought_user, following_names: user_ids_to_names(db, sought_user[:following_ids]), 
+        follower_names: user_ids_to_names(db, sought_user[:follower_ids]), date: Time.at(sought_user["creation_date"]).to_date
+    }) 
 end
 
 get("/media/:media_id") do
- 
     sought_id = params[:media_id].to_i
-
-    sought_media = db.execute("SELECT * FROM Media WHERE Media.id = ?", sought_id)
+    sought_media = media(db, sought_id) 
 
     if sought_media.empty?
        return slim(:"error", locals:{document_title: "404", error_message: "The media specified is not found."})
     end
-
-    genres = db.execute("SELECT Genre.name FROM Genre INNER JOIN Media_genre_relation ON Genre.id = Media_genre_relation.genre_id WHERE Media_genre_relation.media_id = ?;", sought_id)
-    authors = db.execute("SELECT Author.name FROM Author INNER JOIN Media_author_relation ON Author.id = Media_author_relation.author_id WHERE Media_author_relation.media_id = ?", sought_id)
-   
-    slim(:"media", locals:{document_title: sought_media[0]["name"], media: sought_media[0], genres: genres, authors: authors })
-end
-
-get("/admin") do
-
+    #TODO. Users funktionen ska inte används för authors :/
+    slim(:"media", locals:{document_title: sought_media["name"], 
+        media: sought_media, author_names: users(db, sought_media[:author_ids])[0]["name"], date: Time.at(sought_media["creation_date"]).to_date
+    })
 end

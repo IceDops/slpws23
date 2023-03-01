@@ -1,0 +1,11 @@
+- if !user["picpath"] 
+    - user_pic_path = "/img/default_user_pic.svg" 
+- else
+    - user_pic_path = "/img/uploaded_img/profile/" + user["picpath"] 
+
+img src=user_pic_path alt="Användare '#{user["name"]}':s profilbild"/
+p = "User name: #{user["name"]}"
+p = "User type: #{user["type"]}"
+p = "Following: #{following_names} (#{following_names.length})"
+p = "Joined: #{date}"
+p = "Followers: #{follower_names} (#{follower_names.length})"
