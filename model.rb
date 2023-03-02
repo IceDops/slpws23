@@ -47,26 +47,49 @@ def review(db, review_id)
     if sought_review.empty?
         return []
     end
-    return sought_review
+    return sought_review[0]
 end
 
 def user_reviews(db, user_id)
+    print(user_id)
     reviews = db.execute("SELECT * FROM Review WHERE Review.user_id = ?;", user_id)
     return reviews
 end
 
+
 def followings_reviews(db, user_id) 
-    followings = user(db, user_id)
+    followings = users(db, [user_id])
 
     print(followings)
 
     followings_reviews = []
     followings.each do |following|
-        followings_reviews = followings_reviews + user_reviews(db, following)
+        followings_reviews.push(user_reviews(db, following["user_id"]))
     end
     return followings_reviews
 end
 
 def user_ids_to_names(db, user_ids) 
    return users(db, user_ids).map {|user| user["name"]}
+end
+
+def author_ids_to_names(db, author_ids) 
+    author_names = [];
+    print(author_ids)
+    author_ids.each do | author_id |
+        author_names.push(db.execute("SELECT Author.name FROM Author WHERE Author.id = ?;", author_id)[0]["name"])
+    end
+    return author_names
+end
+
+def genre_ids_to_names(db, genre_ids) 
+    genre_names = [];
+    genre_ids.each do | genre_id |
+        genre_names.push(db.execute("SELECT Genre.name FROM Genre WHERE Genre.id = ?;", genre_id)[0]["name"])
+    end
+    return genre_names
+end
+
+def media_id_to_name(db, media_id) 
+    return db.execute("SELECT Media.name FROM Media WHERE Media.id = ?;", media_id)[0]["name"]
 end

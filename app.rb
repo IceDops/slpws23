@@ -12,9 +12,10 @@ enable :sessions
 db = database("./db/main.db")
 
 get('/') do 
-    # 1 is temporary, should be replaced with session[:user_id]
+    print("REEEEEEEEEEEEEEEEEEEEe")
+    #print(user_reviews(db,2))
     print(followings_reviews(db, 1))
-    slim(:"index", locals:{document_title: "Home", followings_reviews: followings_reviews(db, 1)})
+    #slim(:"index", locals:{document_title: "Home", followings_reviews: followings_reviews(db, 1)})
 end
 
 
@@ -40,10 +41,12 @@ get("/review/:review_id") do
        return slim(:"error", locals:{document_title: "404", error_message: "The review specified is not found."})
     end
 
-    media_name = media_id_to_name(db, sought_review[0]["id"])
+    media_name = media_id_to_name(db, sought_review["media_id"])
+    print("dsajdlksakjdkjaskjdakjsdkjasjkdajksdjkaskjdkjadjkkj")
+    print(sought_review["user_id"])
 
-    slim(:"review", locals:{document_title: "Review: #{media_name}", review: sought_review[0], 
-        media_name: media_name, date: Time.at(sought_review["creation_date"]).to_datetime  
+    slim(:"review", locals:{document_title: "Review: #{media_name}", review: sought_review, 
+        media_name: media_name, user_author_name: user_ids_to_names(db, [sought_review["user_id"]]), date: Time.at(sought_review["creation_date"]).to_date
     })
 end
 
@@ -68,8 +71,9 @@ get("/media/:media_id") do
     if sought_media.empty?
        return slim(:"error", locals:{document_title: "404", error_message: "The media specified is not found."})
     end
-    #TODO. Users funktionen ska inte används för authors :/
+     
     slim(:"media", locals:{document_title: sought_media["name"], 
-        media: sought_media, author_names: users(db, sought_media[:author_ids])[0]["name"], date: Time.at(sought_media["creation_date"]).to_date
+        media: sought_media, author_names: author_ids_to_names(db, sought_media[:author_ids]), 
+        genre_names: genre_ids_to_names(db, sought_media[:genre_ids]), date: Time.at(sought_media["creation_date"]).to_date
     })
 end
