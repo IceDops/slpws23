@@ -6,18 +6,15 @@ require "date"
 require "sinatra/reloader"
 require_relative "./model.rb"
 
-
 enable :sessions
 
 db = database("./db/main.db")
 
 get('/') do 
-    print("REEEEEEEEEEEEEEEEEEEEe")
-    #print(user_reviews(db,2))
-    print(followings_reviews(db, 1))
-    #slim(:"index", locals:{document_title: "Home", followings_reviews: followings_reviews(db, 1)})
+    # Replace 1 with user_id
+    followings_reviews = followings_reviews(db, 1)
+    slim(:"index", locals:{document_title: "Home", followings_reviews: followings_reviews, db: db})
 end
-
 
 get("/signup") do
 

@@ -1,5 +1,8 @@
+h2 Aktivitet hos dina följningar:
 - followings_reviews.each do | following_review |
-   // p = "Author: #{following_review[:author]}"
-    p = "Rating: #{following_revies["rating"]}"
-    p = "Medium: #{following_review[:media]}"
-    p = "Content: #{following_review["content"]}"
+   p = "Author: #{user_ids_to_names(db, [following_review["user_id"]])}"
+   p = "Rating: #{following_review["rating"]}"
+   p = "Medium: #{media_id_to_name(db, following_review["media_id"])}"
+   p = "Content: #{following_review["content"]}"
+   p = "Creation date: #{format_unix_timestamp(following_review["creation_date"])}"
+   hr 

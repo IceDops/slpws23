@@ -1,9 +1,25 @@
+# TODO
+# Använd "helpers" mer 
+
 def database(path) 
     db = SQLite3::Database.new('db/main.db')
 	db.results_as_hash = true
     return db
 end
 
+helpers do
+    def user_ids_to_names(db, user_ids) 
+        return users(db, user_ids).map {|user| user["name"]}
+    end
+
+    def media_id_to_name(db, media_id) 
+        return db.execute("SELECT Media.name FROM Media WHERE Media.id = ?;", media_id)[0]["name"]
+    end
+
+    def format_unix_timestamp(timestamp) 
+        return Time.at(timestamp).to_date
+    end
+end
 
 def users(db, user_ids)
     users = []
@@ -58,20 +74,19 @@ end
 
 
 def followings_reviews(db, user_id) 
-    followings = users(db, [user_id])
+    followings = users(db, [user_id])[0][:following_ids]
 
-    print(followings)
+    #print("Followings: ")
+    #print(followings)
+
 
     followings_reviews = []
     followings.each do |following|
-        followings_reviews.push(user_reviews(db, following["user_id"]))
+        followings_reviews = followings_reviews + user_reviews(db, following)
     end
     return followings_reviews
 end
 
-def user_ids_to_names(db, user_ids) 
-   return users(db, user_ids).map {|user| user["name"]}
-end
 
 def author_ids_to_names(db, author_ids) 
     author_names = [];
@@ -90,6 +105,4 @@ def genre_ids_to_names(db, genre_ids)
     return genre_names
 end
 
-def media_id_to_name(db, media_id) 
-    return db.execute("SELECT Media.name FROM Media WHERE Media.id = ?;", media_id)[0]["name"]
-end
+
