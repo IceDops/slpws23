@@ -66,6 +66,17 @@ def review(db, review_id)
     return sought_review[0]
 end
 
+def get_all_reviews(db)
+    reviews = db.execute("SELECT * FROM Review")
+    if reviews.empty?
+        return []
+    end
+
+    reviews = reviews.sort_by {|review| review["creation_date"] *-1 }
+
+    return reviews
+end
+
 def user_reviews(db, user_id)
     print(user_id)
     reviews = db.execute("SELECT * FROM Review WHERE Review.user_id = ?;", user_id)
@@ -84,6 +95,9 @@ def followings_reviews(db, user_id)
     followings.each do |following|
         followings_reviews = followings_reviews + user_reviews(db, following)
     end
+
+    followings_reviews = followings_reviews.sort_by {|review| review["creation_date"] *-1 }
+
     return followings_reviews
 end
 

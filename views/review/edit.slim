@@ -1,0 +1,6 @@
+/h2 = "Redigera recension om #{media_name} av #{review_author}"
+
+form action="/review/" method="POST"
+    input type="number" name="review_rating" min="1" max="5" value="#{review["rating"]}" placeholder="Betyg"
+    input type="text" name="review_desc" value="#{review["content"]}" placeholder="Beskrivning"/
+    input type="submit" value="Publicera"

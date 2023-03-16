@@ -13,7 +13,7 @@ db = database("./db/main.db")
 get('/') do 
     # Replace 1 with user_id
     followings_reviews = followings_reviews(db, 1)
-    slim(:"index", locals:{document_title: "Home", followings_reviews: followings_reviews, db: db})
+    slim(:"index", locals:{document_title: "Hem", followings_reviews: followings_reviews, db: db})
 end
 
 get("/signup") do
@@ -24,9 +24,23 @@ get("/search") do
 
 end
 
-get("admin") do
-    
+get("/review") do
+    reviews = get_all_reviews(db)
+    slim(:"review/index", locals:{document_title: "Reviews", reviews: reviews, db: db})
 end
+
+# Putting this before /review/:review_id so it matches this first, otherwise it will think that new is an id 
+get("/review/new") do
+    return slim(:"review/new", locals:{document_title: "Publisera en recension"})
+end
+
+get("/review/:review_id/edit") do
+    sought_id = params[:review_id].to_i
+    review = review(db, sought_id)
+
+    return slim(:"review/edit", locals:{document_title: "Redigera en recension", review: review})
+end
+
 
 get("/review/:review_id") do
 
@@ -39,10 +53,9 @@ get("/review/:review_id") do
     end
 
     media_name = media_id_to_name(db, sought_review["media_id"])
-    print("dsajdlksakjdkjaskjdakjsdkjasjkdajksdjkaskjdkjadjkkj")
     print(sought_review["user_id"])
 
-    slim(:"review", locals:{document_title: "Review: #{media_name}", review: sought_review, 
+    slim(:"review/show", locals:{document_title: "Review: #{media_name}", review: sought_review, 
         media_name: media_name, user_author_name: user_ids_to_names(db, [sought_review["user_id"]]), date: Time.at(sought_review["creation_date"]).to_date
     })
 end
