@@ -1,0 +1,16 @@
+{
+    "name": "slpws23",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "yardoc": "bundle exec yardoc --plugin yard-sinatra app.rb model.rb",
+        "dstart": "nodemon --exec ruby app.rb"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@prettier/plugin-ruby": "^3.2.2",
+        "prettier": "^2.8.4"
+    }
+}
