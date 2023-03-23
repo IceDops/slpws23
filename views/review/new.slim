@@ -1,6 +1,6 @@
-h2 Skapa en ny recension
+h2 = "Skapa en ny recension för #{media_id_to_name(db, media_id)}"
 
-form action="/albums" method="POST"
+form action="/media/#{media_id}/reviews" method="POST"
     input type="number" name="review_rating" min="1" max="5" placeholder="Betyg"
     input type="text" name="review_desc" placeholder="Beskrivning"/
     input type="submit" value="Publicera"

@@ -1,5 +1,6 @@
 # TODO
 # Använd "helpers" mer
+# Använd raise för att kasta errors
 
 # YARDOC DOCUMENTATION TEMPLATE FOR FUNCTIONS
 # Attempts to insert a new row in the articles table
@@ -46,6 +47,30 @@ module Model
         else
             return true
         end
+    end
+
+    # Checks if user has already published a review for a specific media
+    #
+    # @param [SQLite3::Database] database where review is stored
+    # @param [Number] the media's id in the database
+    # @param [Number] the ID belongning to the user that is being checked
+    #
+    # @return [Boolean] if it exist
+    def does_user_have_review(db, media_id, user_id)
+        if db.execute("SELECT * FROM Review WHERE user_id = ? AND media_id = ?", user_id, media_id).empty?
+            return false
+        end
+        return true
+    end
+
+    # Displays an error site customized with the error provided
+    #
+    # @param [Number] the HTTP response status code the error is going to have
+    # @param [Number] the error message that will be displayed
+    #
+    # @return [Nil]
+    def display_error(status, msg)
+        slim(:"error", locals: { document_title: status.to_s, error_message: msg })
     end
 
     def users(db, user_ids)
@@ -177,20 +202,39 @@ module Model
             return false
         end
     end
-end
 
-# Deletes specifed review in the database provided
-#
-# @param [SQLite3::Database] database where review is stored
-# @param [Number] the the media id belonging to the review in the database
-# @param [Number] the review's id in the database
-#
-# @return [Boolean] was it deleted?
-def delete_review(db, media_id, review_id)
-    if does_review_exist(db, media_id, review_id)
-        db.execute("DELETE FROM Review WHERE id = ?", review_id)
-        return true
-    else
-        return false
+    # Deletes specifed review in the database provided
+    #
+    # @param [SQLite3::Database] database where review is stored
+    # @param [Number] the the media id belonging to the review in the database
+    # @param [Number] the review's id in the database
+    #
+    # @return [Boolean] was it deleted?
+    def delete_review(db, media_id, review_id)
+        if does_review_exist(db, media_id, review_id)
+            db.execute("DELETE FROM Review WHERE id = ?", review_id)
+            return true
+        else
+            return false
+        end
+    end
+
+    # Inserts a newly created review into the database
+
+    # @param [SQLite3::Database] database where review is stored
+    # @param [Number] the the media id belonging to the review in the database
+    # @param [Number] the review's id in the dat
+    #
+    # @return [Number] the id of the newly created review
+    def create_review(db, media_id, user_id, rating, desc)
+        raise "User review already exist for this media." if (does_user_have_review(db, user_id, media_id))
+        db.execute(
+            "INSERT INTO Review (media_id, user_id, rating, content, creation_date) VALUES (?, ?, ?, ?, ?)",
+            media_id,
+            user_id,
+            rating,
+            desc,
+            Time.now.to_i
+        )
     end
 end

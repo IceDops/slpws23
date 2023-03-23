@@ -1,5 +1,7 @@
 # TODO
 # Lägg mer av logiken i model.rb. Kolla t.ex inte ifall en recension existerar i app.rb
+# Använd resuce för att hantera errors
+# Använd send_error() från model.rb
 
 require "sinatra"
 require "slim"
@@ -36,15 +38,61 @@ get("/search") {}
 # Putting this before /review/:review_id so it matches this first, otherwise it will think that new is an id
 get("/media/new") { return(slim(:"review/new", locals: { document_title: "Publisera en recension" })) }
 
+get("/media/:media_id") do
+    sought_id = params[:media_id].to_i
+    sought_media = media(db, sought_id)
+
+    if sought_media.empty?
+        return(
+            slim(:"error", locals: { document_title: "404", error_message: "The media specified is not found." })
+        )
+    end
+
+    slim(
+        :"media",
+        locals: {
+            document_title: sought_media["name"],
+            media: sought_media,
+            author_names: author_ids_to_names(db, sought_media[:author_ids]),
+            genre_names: genre_ids_to_names(db, sought_media[:genre_ids]),
+            date: Time.at(sought_media["creation_date"]).to_date
+        }
+    )
+end
+
 # Finds all reviews belonging to a media
 #
 # @param [Integer] :media_id, The ID of the media
 #
 # @see Model#get_all_reviews
-get("/medias/:media_id/reviews") do
+get("/media/:media_id/reviews") do
     media_id = params[:media_id].to_i
     reviews = get_all_reviews(db, media_id)
     slim(:"review/index", locals: { document_title: "Reviews", reviews: reviews, db: db })
+end
+
+# Displays the menu for creating reviews
+#
+# @param [Integer] :media_id, The ID of the media
+get("/media/:media_id/reviews/new") do
+    media_id = params[:media_id].to_i
+
+    slim(:"review/new", locals: { document_title: "Ny recension", media_id: media_id, db: db })
+end
+
+post("/media/:media_id/reviews") do
+    media_id = params[:media_id].to_i
+    review_rating = params[:review_rating].to_i
+    review_desc = params[:review_desc]
+
+    # Temporärt är den 1
+    user_id = 1
+    begin
+        print(create_review(db, media_id, user_id, review_rating, review_desc))
+    rescue Exception => e
+        display_error(400, e)
+    end
+    #slim(:"review/new", locals: { document_title: "Ny recension", media_id: media_id, db: db })
 end
 
 # Finds a specific review to a certain media
@@ -53,7 +101,7 @@ end
 # @param [Integer] :review_id, The ID of the review
 #
 # @see Model#review
-get("/medias/:media_id/reviews/:review_id") do
+get("/media/:media_id/reviews/:review_id") do
     media_id = params[:media_id].to_i
     review_id = params[:review_id].to_i
 
@@ -85,7 +133,7 @@ end
 # @param [Integer] :review_id, The ID of the review
 #
 # @see Model#review
-get("/medias/:media_id/reviews/:review_id/edit") do
+get("/media/:media_id/reviews/:review_id/edit") do
     media_id = params[:media_id].to_i
     review_id = params[:review_id].to_i
 
@@ -115,7 +163,7 @@ end
 # @param [Integer] :review_id, The ID of the review
 #
 # @see Model#update_review
-post("/medias/:media_id/reviews/:review_id/edit") do
+post("/media/:media_id/reviews/:review_id/edit") do
     media_id = params[:media_id].to_i
     review_id = params[:review_id].to_i
 
@@ -130,7 +178,7 @@ post("/medias/:media_id/reviews/:review_id/edit") do
         )
     end
 
-    redirect("/medias/#{media_id}/reviews/#{review_id}")
+    redirect("/media/#{media_id}/reviews/#{review_id}")
 end
 
 # Deletes an review and redirects to /review
@@ -139,7 +187,7 @@ end
 # @param [Integer] :review_id, The ID of the to be deleted review
 #
 # @see Model#delete_review
-get("/medias/:media_id/review/:review_id/delete") do
+get("/media/:media_id/review/:review_id/delete") do
     media_id = params[:media_id].to_i
     review_id = params[:review_id].to_i
 
@@ -170,28 +218,6 @@ get("/users/:user_id") do
             following_names: user_ids_to_names(db, sought_user[:following_ids]),
             follower_names: user_ids_to_names(db, sought_user[:follower_ids]),
             date: Time.at(sought_user["creation_date"]).to_date
-        }
-    )
-end
-
-get("/medias/:media_id") do
-    sought_id = params[:media_id].to_i
-    sought_media = media(db, sought_id)
-
-    if sought_media.empty?
-        return(
-            slim(:"error", locals: { document_title: "404", error_message: "The media specified is not found." })
-        )
-    end
-
-    slim(
-        :"media",
-        locals: {
-            document_title: sought_media["name"],
-            media: sought_media,
-            author_names: author_ids_to_names(db, sought_media[:author_ids]),
-            genre_names: genre_ids_to_names(db, sought_media[:genre_ids]),
-            date: Time.at(sought_media["creation_date"]).to_date
         }
     )
 end
