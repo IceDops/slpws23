@@ -34,9 +34,11 @@ end
 get("/signup") {}
 
 get("/search") {}
-
+get("/media") do
+    print(get_all_media(db))
+    return(slim(:"media/index", locals: { db: db, media: get_all_media(db), document_title: "Alla medier" }))
+end
 # Putting this before /review/:review_id so it matches this first, otherwise it will think that new is an id
-get("/media/new") { return(slim(:"review/new", locals: { document_title: "Publisera en recension" })) }
 
 get("/media/:media_id") do
     sought_id = params[:media_id].to_i
@@ -48,16 +50,9 @@ get("/media/:media_id") do
         )
     end
 
-    slim(
-        :"media",
-        locals: {
-            document_title: sought_media["name"],
-            media: sought_media,
-            author_names: author_ids_to_names(db, sought_media[:author_ids]),
-            genre_names: genre_ids_to_names(db, sought_media[:genre_ids]),
-            date: Time.at(sought_media["creation_date"]).to_date
-        }
-    )
+    puts("Media: #{sought_media}")
+
+    slim(:"media/show", locals: { db: db, document_title: sought_media["name"], medium: sought_media })
 end
 
 # Finds all reviews belonging to a media
@@ -80,6 +75,13 @@ get("/media/:media_id/reviews/new") do
     slim(:"review/new", locals: { document_title: "Ny recension", media_id: media_id, db: db })
 end
 
+# Creates a review-row in the database and redirects user if successful
+#
+# @param [Integer] :media_id, The ID of the media
+# @param [Integer] :review_rating, the review rating specified by the user
+# @param [Integer] :review_desc, the review description specified by the user
+#
+# @see Model#review
 post("/media/:media_id/reviews") do
     media_id = params[:media_id].to_i
     review_rating = params[:review_rating].to_i
@@ -88,7 +90,8 @@ post("/media/:media_id/reviews") do
     # Temporärt är den 1
     user_id = 1
     begin
-        print(create_review(db, media_id, user_id, review_rating, review_desc))
+        new_review_id = create_review(db, media_id, user_id, review_rating, review_desc)
+        redirect("/media/#{media_id}/reviews/#{new_review_id}")
     rescue Exception => e
         display_error(400, e)
     end
@@ -187,7 +190,7 @@ end
 # @param [Integer] :review_id, The ID of the to be deleted review
 #
 # @see Model#delete_review
-get("/media/:media_id/review/:review_id/delete") do
+post("/media/:media_id/reviews/:review_id/delete") do
     media_id = params[:media_id].to_i
     review_id = params[:review_id].to_i
 
@@ -197,7 +200,7 @@ get("/media/:media_id/review/:review_id/delete") do
         )
     end
 
-    redirect("/review")
+    redirect("/media/#{media_id}/reviews")
 end
 
 get("/users/:user_id") do

@@ -24,6 +24,25 @@ helpers do
     def format_unix_timestamp(timestamp)
         return Time.at(timestamp).to_date
     end
+
+    def author_ids_to_names(db, author_ids)
+        author_names = []
+        print(author_ids)
+        author_ids.each do |author_id|
+            author_names.push(
+                db.execute("SELECT Author.name FROM Author WHERE Author.id = ?;", author_id)[0]["name"]
+            )
+        end
+        return author_names
+    end
+
+    def genre_ids_to_names(db, genre_ids)
+        genre_names = []
+        genre_ids.each do |genre_id|
+            genre_names.push(db.execute("SELECT Genre.name FROM Genre WHERE Genre.id = ?;", genre_id)[0]["name"])
+        end
+        return genre_names
+    end
 end
 
 module Model
@@ -103,7 +122,6 @@ module Model
     def media(db, media_id)
         sought_media = db.execute("SELECT * FROM Media WHERE Media.id = ?", media_id)
         return [] if sought_media.empty?
-
         genres =
             db.execute(
                 "SELECT Genre.id FROM Genre INNER JOIN Media_genre_relation ON Genre.id = Media_genre_relation.genre_id WHERE Media_genre_relation.media_id = ?;",
@@ -120,6 +138,29 @@ module Model
         sought_media_return[:genre_ids] = genres.map { |genre| genre["id"] }
         sought_media_return[:author_ids] = authors.map { |author| author["id"] }
         return sought_media_return
+    end
+
+    def get_all_media(db)
+        media = db.execute("SELECT * FROM Media")
+        return [] if media.empty?
+        media_return = []
+        media.each do |medium|
+            media_return.push(medium)
+            genres =
+                db.execute(
+                    "SELECT Genre.id FROM Genre INNER JOIN Media_genre_relation ON Genre.id = Media_genre_relation.genre_id WHERE Media_genre_relation.media_id = ?;",
+                    medium["id"]
+                )
+            authors =
+                db.execute(
+                    "SELECT Author.id FROM Author INNER JOIN Media_author_relation ON Author.id = Media_author_relation.author_id WHERE Media_author_relation.media_id = ?;",
+                    medium["id"]
+                )
+            media_return[-1][:genre_ids] = genres.map { |genre| genre["id"] }
+            media_return[-1][:author_ids] = authors.map { |author| author["id"] }
+        end
+
+        return media_return
     end
 
     def review(db, review_id)
@@ -155,25 +196,6 @@ module Model
         followings_reviews = followings_reviews.sort_by { |review| review["creation_date"] * -1 }
 
         return followings_reviews
-    end
-
-    def author_ids_to_names(db, author_ids)
-        author_names = []
-        print(author_ids)
-        author_ids.each do |author_id|
-            author_names.push(
-                db.execute("SELECT Author.name FROM Author WHERE Author.id = ?;", author_id)[0]["name"]
-            )
-        end
-        return author_names
-    end
-
-    def genre_ids_to_names(db, genre_ids)
-        genre_names = []
-        genre_ids.each do |genre_id|
-            genre_names.push(db.execute("SELECT Genre.name FROM Genre WHERE Genre.id = ?;", genre_id)[0]["name"])
-        end
-        return genre_names
     end
 
     # Updates the specified review in the database provided with provided information
@@ -236,5 +258,6 @@ module Model
             desc,
             Time.now.to_i
         )
+        return db.last_insert_row_id()
     end
 end

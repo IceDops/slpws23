@@ -1,1 +1,14 @@
 h2 Alla medium 
+- media.each do | medium |
+    - if !medium["picpath"] 
+        - medium_pic_path = "/img/default_media_pic.svg"
+    - else
+        - medium_pic_path = "/img/uploaded_img/media/" + medium["picpath"] 
+
+    img src=medium_pic_path alt="Mediet '#{medium["name"]}':s omslagsbild"/
+    p = "Mediumets namn: #{medium["name"]}"
+    p = "Mediumets användarbetyg: #{medium["total_rating"]}"
+    p = "Mediumtes typ: #{medium["type"]}"
+    p = "Media genre: #{genre_ids_to_names(db, medium[:genre_ids])}"
+    p = "Media authors: #{author_ids_to_names(db, medium[:author_ids])}"
+    p = format_unix_timestamp(medium["creation_date"])
