@@ -75,8 +75,11 @@ module Model
     # @param [Number] the ID belongning to the user that is being checked
     #
     # @return [Boolean] if it exist
-    def does_user_have_review(db, media_id, user_id)
-        if db.execute("SELECT * FROM Review WHERE user_id = ? AND media_id = ?", user_id, media_id).empty?
+    def does_user_have_review(db, user_id, media_id)
+        puts("Does user already have review?")
+        user_reviews = db.execute("SELECT * FROM Review WHERE user_id = ? AND media_id = ?", user_id, media_id)
+        if user_reviews.empty?
+            puts("USER #{user_id} DOES NOT HAVE REVIEWS")
             return false
         end
         return true
@@ -242,13 +245,14 @@ module Model
     end
 
     # Inserts a newly created review into the database
-
+    #
     # @param [SQLite3::Database] database where review is stored
     # @param [Number] the the media id belonging to the review in the database
     # @param [Number] the review's id in the dat
     #
-    # @return [Number] the id of the newly created review
+    # @return [Number] the id of the newly created revi ew
     def create_review(db, media_id, user_id, rating, desc)
+        print("USER IS SITLL #{user_id}")
         raise "User review already exist for this media." if (does_user_have_review(db, user_id, media_id))
         db.execute(
             "INSERT INTO Review (media_id, user_id, rating, content, creation_date) VALUES (?, ?, ?, ?, ?)",
@@ -259,5 +263,84 @@ module Model
             Time.now.to_i
         )
         return db.last_insert_row_id()
+    end
+
+    # Calculates a total rating for a medium based on user reviews and updates the database
+    #
+    # @param [SQLite3::Database] database where review is stored
+    # @param [Number] the id of the media that is updated
+    #
+    # @return [Nil]
+    def update_rating(db, media_id)
+        ratings = db.execute("SELECT rating FROM Review WHERE media_id = ?", media_id)
+        ratings_sum = 0
+        ratings.each { |rating| ratings_sum += rating["rating"] }
+        average = (ratings_sum / ratings.length.to_f).round(1)
+        db.execute("UPDATE Media SET total_rating = ? WHERE id = ?", average, media_id)
+    end
+
+    # Creates a medium in the database and saves the image
+    #
+    # @param [SQLite3::Database] database where review is s
+    # @param [Hash] the medium to be created
+    #   * :name [String] the medium name
+    #   * :type [String] the medium type (book, song, etc.)
+    #   * :creation_date [Number] the unix timestamp for the mediums creation date
+    #   * :authors [Array<String>] the original authors of the medium
+    #   * :genres [Array<String>] the genres belonging to the medium
+    #   * :img_file [Hash] the hash of the img file. It has the structure of a uploaded file through a HTMl form.
+    #
+    # @return [Number] the id of the newly created medium
+
+    def create_medium(db, medium)
+        path = File.join("./public/img/uploaded_img/media", medium[:img_file][:filename])
+
+        puts("The path to the uploaded file: #{path}")
+        puts("The supposed tempfile: #{medium[:img_file][:tempfile]}")
+        File.open(path, "wb") { |f| f.write(medium[:img_file][:tempfile].read) }
+
+        db.execute(
+            "INSERT INTO Media (name, total_rating, type, creation_date, picpath) VALUES (?, ?, ?, ?, ?)",
+            medium[:name],
+            nil,
+            medium[:type],
+            medium[:creation_date],
+            medium[:img_file][:filename]
+        )
+
+        media_id = db.last_insert_row_id()
+
+        medium[:authors].each do |author|
+            author_id = db.execute("SELECT id FROM Author WHERE name = ? ", author)
+
+            if author_id.empty?
+                db.execute("INSERT INTO Author (name) VALUES (?)", author)
+                author_id = ["id" => db.last_insert_row_id()]
+            end
+
+            puts("AUTHOR ID: #{author_id}")
+
+            db.execute(
+                "INSERT INTO Media_author_relation (author_id, media_id) VALUES (?, ?)",
+                author_id[0]["id"],
+                media_id
+            )
+        end
+
+        medium[:genres].each do |genre|
+            genre_id = db.execute("SELECT * FROM Genre WHERE name = ? ", genre)
+            if genre_id.empty?
+                db.execute("INSERT INTO Genre (name) VALUES (?)", genre)
+                genre_id = ["id" => db.last_insert_row_id()]
+            end
+
+            db.execute(
+                "INSERT INTO Media_genre_relation (genre_id, media_id) VALUES (?, ?)",
+                genre_id[0]["id"],
+                media_id
+            )
+        end
+
+        return media_id
     end
 end

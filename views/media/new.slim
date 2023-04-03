@@ -1,0 +1,9 @@
+
+form action="/media" method="POST" enctype="multipart/form-data"
+    input type="text" name="medium_name" placeholder="Mediumets namn"/
+    input type="text" name="medium_type" placeholder="Mediumets typ"/
+    input type="date" name="medium_creation_date" value="#{format_unix_timestamp(Time.now)}"
+    input type="file" name="medium_pic"
+    input type="text" name="medium_authors" placeholder="Namn1,Namn2,Namn3"/
+    input type="text" name="medium_genres" placeholder="Genre1,Genre2,Genre3"/
+    input type="submit" value="Publicera"

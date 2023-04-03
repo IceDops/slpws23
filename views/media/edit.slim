@@ -1,0 +1,10 @@
+h2 = "Ändrar mediumet #{medium["name"]}"
+
+form action="/media/#{medium["id"]}/update" method="POST" enctype="multipart/form-data"
+    input type="text" name="medium_name" value=medium["name"] placeholder="Mediumets namn"/
+    input type="text" name="medium_type" value=medium["type"] placeholder="Mediumets typ"/
+    input type="date" name="medium_creation_date" value=format_unix_timestamp(medium["creation_date"])
+    input type="file" name="medium_pic"
+    input type="text" name="medium_authors" value=author_ids_to_names(db, medium[:author_ids]).join(",") placeholder="Namn1,Namn2,Namn3"/ 
+    input type="text" name="medium_genres" value=genre_ids_to_names(db, medium[:genre_ids]).join(",") placeholder="Genre1,Genre2,Genre3"/
+    input type="submit" value="Publicera"

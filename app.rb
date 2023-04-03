@@ -2,6 +2,7 @@
 # Lägg mer av logiken i model.rb. Kolla t.ex inte ifall en recension existerar i app.rb
 # Använd resuce för att hantera errors
 # Använd send_error() från model.rb
+# Vissa dokumeterade parametrar i yardoc har felaktig datatyp. T.ex media_id som inte är en int utan en string (den görs om till en int efteråt)
 
 require "sinatra"
 require "slim"
@@ -16,12 +17,13 @@ enable :sessions
 include Model
 
 db = database("./db/main.db")
+
 # YARDOC ROUTE TEMPLATE
 # Deletes an existing article and redirects to '/articles'
 #
 # @param [Integer] :id, The ID of the article
-# @param [String] title, The new title of the article
-# @param [String] content, The new content of the article
+# @param [String] :title, The new title of the article
+# @param [String] :content, The new content of the article
 #
 # @see Model#delete_article
 
@@ -34,11 +36,46 @@ end
 get("/signup") {}
 
 get("/search") {}
+
 get("/media") do
     print(get_all_media(db))
     return(slim(:"media/index", locals: { db: db, media: get_all_media(db), document_title: "Alla medier" }))
 end
 # Putting this before /review/:review_id so it matches this first, otherwise it will think that new is an id
+
+# Displays the meny for creating media
+get("/media/new") { slim(:"media/new", locals: { document_title: "Lägg till ett nytt medium" }) }
+
+# Creates a new medium in the database
+#
+# @param [String] :medium_name, the name of the to-be created medium
+# @param [String] :medium_type, the type of the to-be created medium (song, book, etc.)
+# @param [String] :medium_creation_date, the creation date of the to-be created medium using an acceptable format that can be passed into the Date.parse function.
+# @param [String] :medium_authors, the authors of the to-be created medium. NOTE, the authors are the ones who created the original medium refered to in the website, not the people who posted it to the webiste.
+# @param [String] :medium_genres, the genres of this medium
+# @param [String] :img_file, the uploaded image file through a HTML form
+#
+# @see Model#create_medium
+post("/media") do
+    unix_date = Date.parse(params[:medium_creation_date]).to_time.to_i
+    medium = {
+        name: params[:medium_name],
+        type: params[:medium_type],
+        creation_date: unix_date,
+        authors: params[:medium_authors].split(","),
+        genres: params[:medium_genres].split(","),
+        img_file: params[:medium_pic]
+    }
+
+    print("Parsed medium #{medium}")
+
+    #File.join("./public/img/media", params[:media_pic][:filename])
+    #File.write(path, File.read(params[:media_pic][:tempfile]))
+
+    medium_id = create_medium(db, medium)
+
+    redirect("media/#{medium_id}")
+end
 
 get("/media/:media_id") do
     sought_id = params[:media_id].to_i
@@ -55,7 +92,45 @@ get("/media/:media_id") do
     slim(:"media/show", locals: { db: db, document_title: sought_media["name"], medium: sought_media })
 end
 
-# Finds all reviews belonging to a media
+# Display the edit page for the specifed medium
+#
+# @param [String] :medium_name, the name of the to-be created medium
+# @param [String] :medium_type, the type of the to-be created medium (song, book, etc.)
+# @param [String] :medium_creation_date, the creation date of the to-be created medium using an acceptable format that can be passed into the Date.parse function.
+# @param [String] :medium_authors, the authors of the to-be created medium. NOTE, the authors are the ones who created the original medium refered to in the website, not the people who posted it to the webiste.
+# @param [String] :medium_genres, the genres of this medium
+# @param [String] :img_file, the uploaded image file through a HTML form
+#
+# @param [String] :medium_id, The ID of the medium to be edited
+#
+# @see Model#media
+get("/media/:medium_id/edit") do
+    medium_id = params[:medium_id]
+
+    medium = media(db, medium_id)
+
+    display_error(404, "The medium ID specified does not exist.") if medium.empty?
+    slim(:"media/edit", locals: { db: db, document_title: "Uppdatera mediumet", medium: medium })
+end
+
+# Updates a medium in the database
+#
+# @param [String] :medium_name, the new name of the medium
+# @param [String] :medium_type, the new type of the medium (song, book, etc.)
+# @param [String] :medium_creation_date, the new creation date of the medium using an acceptable format that can be passed into the Date.parse function.
+# @param [String] :medium_authors, the new authors of the medium. NOTE, the authors are the ones who created the original medium refered to in the website, not the people who posted it to the webiste.
+# @param [String] :medium_genres, the new genres of this medium
+# @param [String] :img_file, the new uploaded image file for this medium through a HTML form
+# @param [String] :medium_id, The ID of the medium to be edited
+#
+# @see Model#update_media
+post("/media/:medium_id/update") do
+    medium_id = params[:medium_id]
+
+    redirect("/media/#{medium_id}")
+end
+
+# Finds all reviews beloumging to a media
 #
 # @param [Integer] :media_id, The ID of the media
 #
@@ -71,6 +146,11 @@ end
 # @param [Integer] :media_id, The ID of the media
 get("/media/:media_id/reviews/new") do
     media_id = params[:media_id].to_i
+
+    user_id = 1
+    if does_user_have_review(db, user_id, media_id)
+        return display_error(400, "User does already have a review for this medium.")
+    end
 
     slim(:"review/new", locals: { document_title: "Ny recension", media_id: media_id, db: db })
 end
@@ -90,11 +170,14 @@ post("/media/:media_id/reviews") do
     # Temporärt är den 1
     user_id = 1
     begin
+        print("NOOOOO")
         new_review_id = create_review(db, media_id, user_id, review_rating, review_desc)
+        update_rating(db, media_id)
         redirect("/media/#{media_id}/reviews/#{new_review_id}")
     rescue Exception => e
         display_error(400, e)
     end
+
     #slim(:"review/new", locals: { document_title: "Ny recension", media_id: media_id, db: db })
 end
 
