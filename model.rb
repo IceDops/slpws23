@@ -85,6 +85,19 @@ module Model
         return true
     end
 
+    # Checks if a user with the specified username exist in the database
+    #
+    # @param [SQLite3::Database] database where review is stored
+    # @param [String] the username that is going to be checked
+    #
+    # @return [Boolean] if it exist
+
+    def does_user_exist(db, username)
+        return false if db.execute("SELECT id FROM User WHERE name = ?", username).empty?
+
+        return true
+    end
+
     # Displays an error site customized with the error provided
     #
     # @param [Number] the HTTP response status code the error is going to have
@@ -342,5 +355,13 @@ module Model
         end
 
         return media_id
+    end
+
+    def create_user(db, username, password, password_confirmation)
+        raise "A user with the provided username does already exist." if does_user_exist(db, username)
+
+        raise "Passwords does not match." if password != password_confirmation
+
+         
     end
 end

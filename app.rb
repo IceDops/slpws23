@@ -33,7 +33,29 @@ get("/") do
     slim(:"index", locals: { document_title: "Hem", followings_reviews: followings_reviews, db: db })
 end
 
-get("/signup") {}
+# Displays the meny for creating media
+get("/users/new") do
+    ## ADD IF LOGGED IN REDIRECT TO INDEX
+    slim(:"users/new", locals: { document_title: "Skapa ett konto" })
+end
+
+# Creates a new user in the database
+#
+# @param [String] :username, the username for the new user
+# @param [String] :password, the password for the new user
+# @param [String] :password_confirmation, the password confirmation for the new user. Is going to be compared to :password
+#
+# @see Model#create_user
+post("/users") do
+    username = params[:username]
+    password = params[:password]
+    password_confirmation = params[:password_confirmation]
+    begin
+        create_user(db, username, password, password_confirmation)
+    rescue Exception => e
+        display_error(422, e)
+    end
+end
 
 get("/search") {}
 
@@ -41,7 +63,6 @@ get("/media") do
     print(get_all_media(db))
     return(slim(:"media/index", locals: { db: db, media: get_all_media(db), document_title: "Alla medier" }))
 end
-# Putting this before /review/:review_id so it matches this first, otherwise it will think that new is an id
 
 # Displays the meny for creating media
 get("/media/new") { slim(:"media/new", locals: { document_title: "Lägg till ett nytt medium" }) }
@@ -170,7 +191,6 @@ post("/media/:media_id/reviews") do
     # Temporärt är den 1
     user_id = 1
     begin
-        print("NOOOOO")
         new_review_id = create_review(db, media_id, user_id, review_rating, review_desc)
         update_rating(db, media_id)
         redirect("/media/#{media_id}/reviews/#{new_review_id}")
