@@ -148,6 +148,8 @@ end
 post("/media/:medium_id/update") do
     medium_id = params[:medium_id]
 
+
+
     redirect("/media/#{medium_id}")
 end
 
@@ -192,7 +194,6 @@ post("/media/:media_id/reviews") do
     user_id = 1
     begin
         new_review_id = create_review(db, media_id, user_id, review_rating, review_desc)
-        update_rating(db, media_id)
         redirect("/media/#{media_id}/reviews/#{new_review_id}")
     rescue Exception => e
         display_error(400, e)
