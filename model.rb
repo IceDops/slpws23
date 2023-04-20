@@ -360,6 +360,41 @@ module Model
         return media_id
     end
 
+    def clean_authors(db, author_ids, medium_id)
+        medium_relations = db.execute("SELECT * FROM Media_author_relation WHERE media_id = ?", medium_id)
+        medium_relations.each do |medium_relation|
+            if not author_ids.include? medium_relation["author_id"]
+                db.execute(
+                    "DELETE FROM Review WHERE media_id = ? AND author_id = ?",
+                    medium_id,
+                    medium_relation["author_id"]
+                )
+                # Delete the whole author if the author does not belong to any medium
+                author_relations =
+                    db.execute("SELECT * FROM Media_author_relations WHERE author_id = ?", medium_relation["author_id"])
+                db.execute("DELETE FROM Author WHERE id = ?", medium_relation["author_id"]) if author_relations.empty?
+            end
+        end
+    end
+
+    # Same as above. May be a bit repetetive but there will be too much parameters otherwise
+    def clean_genres(db, genre_ids, medium_id)
+        medium_relations = db.execute("SELECT * FROM Media_author_relation WHERE media_id = ?", medium_id)
+        medium_relations.each do |medium_relation|
+            if not genre_ids.include? medium_relation["genre_id"]
+                db.execute(
+                    "DELETE FROM Review WHERE media_id = ? AND author_id = ?",
+                    medium_id,
+                    medium_relation["genre_id"]
+                )
+                # Delete the whole author if the genre does not belong to any medium
+                genre_relations =
+                    db.execute("SELECT * FROM Media_genre_relations WHERE genre_id = ?", medium_relation["genre_id"])
+                db.execute("DELETE FROM Genre WHERE id = ?", medium_relation["genre_id"]) if genre_relations.empty?
+            end
+        end
+    end
+
     # Updates a medium in the database
     #
     # @param [SQLite3::Database] database where the medium is stored
@@ -374,6 +409,19 @@ module Model
     #
     # @return [Nil]
     def update_medium(db, medium_id, updated_medium)
+        if not updated_medium[:img_file].empty?
+            old_relative_path = db.execute("SELECT picpath FROM Media WHERE id = ?", medium_id)
+
+            # Delete old image if it exists
+            if not old_relative_path.empty?
+                old_path = File.join("./public/img/uploaded_img/media", old_relative_path[0]["picpath"])
+                File.delete(old_path)
+            end
+
+            path = File.join("./public/img/uploaded_img/media", updated_medium[:img_file][:filename])
+            File.open(path, "wb") { |f| f.write(updated_medium[:img_file][:tempfile].read) }
+        end
+
         db.execute(
             "UPDATE Media
                 SET name = ?, type = ?, creation_date = ?, picpath = ? 
@@ -385,35 +433,45 @@ module Model
             medium_id
         )
 
+        author_ids = []
         updated_medium[:authors].each do |author|
             author_id = db.execute("SELECT id FROM Author WHERE name = ? ", author)
-
             if author_id.empty?
                 db.execute("INSERT INTO Author (name) VALUES (?)", author)
                 author_id = ["id" => db.last_insert_row_id()]
+                ed
+
+                author_ids.push(author_id)
+
+                #puts("AUTHOR ID: #{author_id}")
+
+                db.execute(
+                    "INSERT INTO Media_author_relation (author_id, media_id) VALUES (?, ?)",
+                    author_id[0]["id"],
+                    media_id
+                )
             end
 
-            puts("AUTHOR ID: #{author_id}")
+            clean_authors(db, author_ids, medium_id)
 
-            db.execute(
-                "INSERT INTO Media_author_relation (author_id, media_id) VALUES (?, ?)",
-                author_id[0]["id"],
-                media_id
-            )
-        end
+            genre_ids = []
+            medium[:genres].each do |genre|
+                genre_id = db.execute("SELECT * FROM Genre WHERE name = ? ", genre)
+                if genre_id.empty?
+                    db.execute("INSERT INTO Genre (name) VALUES (?)", genre)
+                    genre_id = ["id" => db.last_insert_row_id()]
+                end
 
-        medium[:genres].each do |genre|
-            genre_id = db.execute("SELECT * FROM Genre WHERE name = ? ", genre)
-            if genre_id.empty?
-                db.execute("INSERT INTO Genre (name) VALUES (?)", genre)
-                genre_id = ["id" => db.last_insert_row_id()]
+                genre_ids.push(genre_id)
+
+                db.execute(
+                    "INSERT INTO Media_genre_relation (genre_id, media_id) VALUES (?, ?)",
+                    genre_id[0]["id"],
+                    media_id
+                )
             end
 
-            db.execute(
-                "INSERT INTO Media_genre_relation (genre_id, media_id) VALUES (?, ?)",
-                genre_id[0]["id"],
-                media_id
-            )
+            clean_genres(db, genre_ids, medium_id)
         end
     end
 

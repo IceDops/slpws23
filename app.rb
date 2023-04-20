@@ -17,6 +17,8 @@ enable :sessions
 include Model
 
 db = database("./db/main.db")
+# May be required for foreign keys to work
+db.execute("PRAGMA foreign_keys = ON")
 
 # YARDOC ROUTE TEMPLATE
 # Deletes an existing article and redirects to '/articles'
@@ -148,7 +150,18 @@ end
 post("/media/:medium_id/update") do
     medium_id = params[:medium_id]
 
+    puts("HEJ")
 
+    updated_medium = {
+        name: params[:medium_name],
+        type: params[:medium_type],
+        creation_date: params[:medium_creation_date],
+        authors: params[:medium_authors].split(","),
+        genres: params[:medium_genres].split(","),
+        img_file: params[:medium_pic]
+    }
+
+    update_medium(db, medium_id, updated_medium)
 
     redirect("/media/#{medium_id}")
 end
