@@ -149,9 +149,6 @@ end
 # @see Model#update_media
 post("/media/:medium_id/update") do
     medium_id = params[:medium_id]
-
-    puts("HEJ")
-
     updated_medium = {
         name: params[:medium_name],
         type: params[:medium_type],
@@ -160,6 +157,14 @@ post("/media/:medium_id/update") do
         genres: params[:medium_genres].split(","),
         img_file: params[:medium_pic]
     }
+
+    updated_medium.each do |attribute, value|
+        print("ATTRIBUTE: #{attribute.class} VALUE: #{value.class}")
+        if (!value || value == "") && attribute != :img_file
+            puts("DISPLAYING PARAMETER ERROR")
+            return display_error(400, "Parameter #{attribute} is missing from the request or is nil")
+        end
+    end
 
     update_medium(db, medium_id, updated_medium)
 
