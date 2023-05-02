@@ -108,9 +108,11 @@ module Model
         slim(:"error", locals: { document_title: status.to_s, error_message: msg })
     end
 
-    def users(db, user_ids)
+    def users(db, user_ids = nil)
         users = []
+        user_ids = db.execute("SELECT id FROM User").map { |id_obj| id_obj["id"] } if user_ids == nil
         user_ids.each do |user_id|
+            print("USER ID: #{user_id}")
             sought_user = db.execute("SELECT * FROM User WHERE User.id = ?", user_id)
             next if sought_user.empty?
 
@@ -131,7 +133,7 @@ module Model
             sought_user_complete[:follower_ids] = followers.map { |follower| follower["id"] }
             users.push(sought_user_complete)
         end
-
+        print(users)
         return users
     end
 
@@ -412,6 +414,10 @@ module Model
         end
     end
 
+    # Updates the specified medium in the database
+    #
+    # @param [SQLite3::Database] database where genres and relations between the genres and the media are stored.
+    # @param [Number] the ID of the medium in the database to be updated
     # @param [Hash] the properites of the edited medium
     #   * :name [String] the new medium name
     #   * :type [String] the new medium type (book, song, etc.)
@@ -505,8 +511,40 @@ module Model
         clean_genres(db, genre_ids, medium_id)
     end
 
+    # Creates a new user in the database
+    #
+    # @param [SQLite3::Database] database where users are stored
+    # @param [String] the username of the to-be created user
+    # @param [String] the password of the to-be created user
+    # @param [String] the password confirmation of the to-be created user
+    #
+    # @return [Number] the id of the new user
     def create_user(db, username, password, password_confirmation)
-        raise "A user with the provided username does already exist." if does_user_exist(db, username)
-        raise "Passwords does not match." if password != password_confirmation
+        raise "En användare med det användarnamnet existerar redan." if does_user_exist(db, username)
+        raise "Lösenorden matchar inte." if password != password_confirmation
+        # VALIDATING
+        if username.match(/[^a-zA-Z\d]/)
+            raise "Användarnamnet innehåller förbjudna karraktärer. Endast bokstäver och siffror är tillåtna."
+        end
+        raise "Användarnamnet måste vara minst 2 karraktärer långt" if username.length < 2
+        raise "Användarnamnet får max var 32 karraktärer långt" if username.length > 32
+
+        raise "Lösenordet måste vara minst 6 karraktärer långt" if password.length < 6
+        raise "Lösenordet får max var 32 karraktärer långt" if password.length > 32
+        if password.match(/[^a-zA-Z\d@$#!?%^&*]/)
+            raise "Lösenordet innehåller förbjudna karraktärer. Endast bokstäver, siffror och symbolerna @$#!?%^&* är tillåtna."
+        end
+        #
+
+        password_digest = BCrypt::Password.create(password)
+        db.execute(
+            "INSERT INTO User (name, pwddigest, type, picpath, creation_date) VALUES (?, ?, ?, ?, ?)",
+            username,
+            password_digest,
+            "user",
+            nil,
+            Time.now.to_i
+        )
+        return db.last_insert_row_id
     end
 end

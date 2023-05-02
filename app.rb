@@ -35,6 +35,20 @@ get("/") do
     slim(:"index", locals: { document_title: "Hem", followings_reviews: followings_reviews, db: db })
 end
 
+# Displays all users registred in the database
+#
+# @see Model#users
+get("/users") { slim(:"users/index", locals: { document_title: "Alla användare", users: users(db), db: db }) }
+
+get("/users/:user_id") do
+    user_id = params[:user_id].to_i
+    user = users(db, [user_id])
+    puts("USER: #{user}")
+    return display_error(404, "User not found.") if user.empty?
+
+    slim(:"users/show", locals: { document_title: "Användare", user: user[0], db: db })
+end
+
 # Displays the meny for creating media
 get("/users/new") do
     ## ADD IF LOGGED IN REDIRECT TO INDEX
@@ -52,14 +66,14 @@ post("/users") do
     username = params[:username]
     password = params[:password]
     password_confirmation = params[:password_confirmation]
+
     begin
-        create_user(db, username, password, password_confirmation)
+        user_id = create_user(db, username, password, password_confirmation)
+        redirect("/login")
     rescue Exception => e
         display_error(422, e)
     end
 end
-
-get("/search") {}
 
 get("/media") do
     print(get_all_media(db))
@@ -323,26 +337,4 @@ post("/media/:media_id/reviews/:review_id/delete") do
     end
 
     redirect("/media/#{media_id}/reviews")
-end
-
-get("/users/:user_id") do
-    sought_id = params[:user_id].to_i
-    sought_user = users(db, [sought_id])[0]
-
-    if sought_user.empty?
-        return(
-            slim(:"error", locals: { document_title: "404", error_message: "The the user specified is not found." })
-        )
-    end
-
-    slim(
-        :"user",
-        locals: {
-            document_title: sought_user["name"],
-            user: sought_user,
-            following_names: user_ids_to_names(db, sought_user[:following_ids]),
-            follower_names: user_ids_to_names(db, sought_user[:follower_ids]),
-            date: Time.at(sought_user["creation_date"]).to_date
-        }
-    )
 end

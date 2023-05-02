@@ -6,6 +6,7 @@
 img src=user_pic_path alt="Användare '#{user["name"]}':s profilbild"/
 p = "User name: #{user["name"]}"
 p = "User type: #{user["type"]}"
-p = "Following: #{following_names} (#{following_names.length})"
-p = "Joined: #{date}"
-p = "Followers: #{follower_names} (#{follower_names.length})"
+p = "Following: #{user_ids_to_names(db, user[:following_ids])} (#{user[:following_ids].length})"
+p = "Joined: #{format_unix_timestamp(user["creation_date"])}"
+p = "Followers: #{user_ids_to_names(db, user[:follower_ids])} (#{user[:follower_ids].length})"
+hr
