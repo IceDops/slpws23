@@ -52,6 +52,15 @@ module Model
         return db
     end
 
+    # Converts a date string from an HTML form to an unix timestamp
+    #
+    # @param [String] the date string from an HTML form
+    #
+    # @return [Number] The unix timestamp
+    def date_string_to_unix(string)
+        return Date.parse(string).to_time.to_i
+    end
+
     # Checks if review ID exist and belongs belongs to a certain media in the database
     #
     # @param [SQLite3::Database] database where review is stored
@@ -91,10 +100,24 @@ module Model
     # @param [String] the username that is going to be checked
     #
     # @return [Boolean] if it exist
-
-    def does_user_exist(db, username)
+    def does_username_exist(db, username)
         return false if db.execute("SELECT id FROM User WHERE name = ?", username).empty?
+        return true
+    end
 
+    # Checks if a user with the specified ID exist in the database
+    #
+    # @param [SQLite3::Database] database where review is stored
+    # @param [Number] the user ID that is going to be checked
+    #
+    # @return [Boolean] if it exist
+    def does_user_id_exist(db, user_id)
+        return false if db.execute("SELECT * FROM User WHERE id = ?", user_id).empty?
+        return true
+    end
+
+    def does_medium_exist(db, medium_id)
+        return false if db.execute("SELECT * FROM Media WHERE id = ?", medium_id).empty?
         return true
     end
 
@@ -104,8 +127,8 @@ module Model
     # @param [Number] the error message that will be displayed
     #
     # @return [Nil]
-    def display_error(status, msg)
-        slim(:"error", locals: { document_title: status.to_s, error_message: msg })
+    def display_error(msg)
+        slim(:"error", locals: { document_title: "Error", error_message: msg })
     end
 
     def users(db, user_ids = nil)
@@ -177,7 +200,6 @@ module Model
             media_return[-1][:genre_ids] = genres.map { |genre| genre["id"] }
             media_return[-1][:author_ids] = authors.map { |author| author["id"] }
         end
-
         return media_return
     end
 
@@ -203,6 +225,7 @@ module Model
     end
 
     def followings_reviews(db, user_id)
+        puts("USER ID: #{user_id}")
         followings = users(db, [user_id])[0][:following_ids]
 
         #print("Followings: ")
@@ -297,25 +320,63 @@ module Model
         return db.last_insert_row_id()
     end
 
+    def insert_media_author_relation(db, author_id, medium_id)
+        print("TRYING TO INSERT NEW RELATION, AUTHOR ID: #{author_id}, MEDIUM ID: #{medium_id}")
+        media_author_relation =
+            db.execute(
+                "SELECT * FROM Media_author_relation WHERE author_id = ? AND media_id = ? ",
+                author_id,
+                medium_id
+            )
+        if media_author_relation.empty?
+            db.execute(
+                "INSERT INTO Media_author_relation (author_id, media_id) VALUES (?, ?)",
+                author_id,
+                medium_id
+            )
+        end
+    end
+
+    def insert_media_genre_relation(db, genre_id, medium_id)
+        media_genre_relation =
+            db.execute(
+                "SELECT * FROM Media_genre_relation WHERE genre_id = ? AND media_id = ? ",
+                genre_id,
+                medium_id
+            )
+        if media_genre_relation.empty?
+            db.execute("INSERT INTO Media_genre_relation (genre_id, media_id) VALUES (?, ?)", genre_id, medium_id)
+        end
+    end
+
+    # Writes a img file uploaded thorugh an HTML form to a folder on the server
+    #
+    # @param [String] the filename of the image file
+    # @param [String] the name of the folder in the "uploaded_img" directory where the image should be written to
+    # @param [Hash] the image content uploaded through an HTML form
+    def write_image(filename, folder, content)
+        path = File.join("./public/img/uploaded_img/#{folder}", filename)
+        File.open(path, "wb") { |f| f.write(content.read) }
+    end
+
     # Creates a medium in the database and saves the image
     #
-    # @param [SQLite3::Database] database where review is s
+    # @param [SQLite3::Database] database where review is
     # @param [Hash] the medium to be created
     #   * :name [String] the medium name
     #   * :type [String] the medium type (book, song, etc.)
     #   * :creation_date [Number] the unix timestamp for the mediums creation date
     #   * :authors [Array<String>] the original authors of the medium
     #   * :genres [Array<String>] the genres belonging to the medium
-    #   * :img_file [Hash] the hash of the img file. It has the structure of a uploaded file through a HTMl form.
+    #   * :img_file [Hash, Nil] the hash of the img file. It has the structure of a uploaded file through a HTMl form.
     #
     # @return [Number] the id of the newly created medium
-
     def create_medium(db, medium)
-        path = File.join("./public/img/uploaded_img/media", medium[:img_file][:filename])
-
-        puts("The path to the uploaded file: #{path}")
-        puts("The supposed tempfile: #{medium[:img_file][:tempfile]}")
-        File.open(path, "wb") { |f| f.write(medium[:img_file][:tempfile].read) }
+        img_file = nil
+        if medium[:img_file]
+            img_file = medium[:img_file]
+            write_image(medium[:img_file][:filename], media, medium[:img_file][:tempfile])
+        end
 
         db.execute(
             "INSERT INTO Media (name, total_rating, type, creation_date, picpath) VALUES (?, ?, ?, ?, ?)",
@@ -323,7 +384,7 @@ module Model
             nil,
             medium[:type],
             medium[:creation_date],
-            medium[:img_file][:filename]
+            medium[:img_file]
         )
 
         media_id = db.last_insert_row_id()
@@ -335,37 +396,25 @@ module Model
                 db.execute("INSERT INTO Author (name) VALUES (?)", author)
                 author_id = ["id" => db.last_insert_row_id()]
             end
-
-            puts("AUTHOR ID: #{author_id}")
-
-            db.execute(
-                "INSERT INTO Media_author_relation (author_id, media_id) VALUES (?, ?)",
-                author_id[0]["id"],
-                media_id
-            )
+            insert_media_author_relation(db, author_id[0]["id"], media_id)
         end
 
+        print("LOOKING FOR GENRES IN #{medium}")
         medium[:genres].each do |genre|
+            print("INSERTING genre: #{genre}")
             genre_id = db.execute("SELECT * FROM Genre WHERE name = ? ", genre)
             if genre_id.empty?
                 db.execute("INSERT INTO Genre (name) VALUES (?)", genre)
                 genre_id = ["id" => db.last_insert_row_id()]
             end
-
-            db.execute(
-                "INSERT INTO Media_genre_relation (genre_id, media_id) VALUES (?, ?)",
-                genre_id[0]["id"],
-                media_id
-            )
+            insert_media_genre_relation(db, genre_id[0]["id"], media_id)
         end
 
         return media_id
     end
-
-    # Remove old relations between authors and medium. Can also remove author if does not have any relations left to media.
     #
     # @param [SQLite3::Database] database where authors and relations between the authors and the media are stored.
-    # @param [Array<Number>] the IDs of authors that has relations to specified medium
+    # @param [Array<Number>] the IDs of authors that belongs to the specified medium
     # @param [Number] the id of the medium which the specified authors has relations to
     #
     # @return [Nil]
@@ -393,7 +442,7 @@ module Model
     # Remove old relations between genres and medium. Can also remove genre if does not have any relations left to media.
     #
     # @param [SQLite3::Database] database where genres and relations between the genres and the media are stored.
-    # @param [Array<Number>] the IDs of genres that has relations to specified medium
+    # @param [Array<Number>] the IDs of genres belongs to the specified medium
     # @param [Number] the id of the medium which the specified genres has relations to
     #
     # @return [Nil]
@@ -414,6 +463,33 @@ module Model
         end
     end
 
+    # Deletes a medium cover picture stored in the project folder if it's not being used by any medium
+    #
+    #
+    # @param [SQLite3::Database] database where media pictures are stored
+    # @param [String] the medium cover picture's filename that is going to be deleted
+    #
+    # @return [Nil]
+    def clean_medium_pic(db, filename)
+        if db.execute("SELECT * FROM Media WHERE picpath = ?", filename).empty?
+            path = File.join("./public/img/uploaded_img/media", filename)
+            File.delete(path)
+        end
+    end
+
+    # Deletes a pfp stored in the project folder if it's not being used by any user
+    #
+    # @param [SQLite3::Database] database where media pictures are stored
+    # @param [String] the medium cover picture's filename that is going to be deleted
+    #
+    # @return [Nil]
+    def clean_user_pic(db, filename)
+        if db.execute("SELECT * FROM User WHERE picpath = ?", filename).empty?
+            path = File.join("./public/img/uploaded_img/profile", filename)
+            File.delete(path)
+        end
+    end
+
     # Updates the specified medium in the database
     #
     # @param [SQLite3::Database] database where genres and relations between the genres and the media are stored.
@@ -429,15 +505,9 @@ module Model
     # @return [Nil]
     def update_medium(db, medium_id, updated_medium)
         if updated_medium[:img_file] != nil
-            old_relative_path = db.execute("SELECT picpath FROM Media WHERE id = ?", medium_id)
+            old_relative_path = db.execute("SELECT picpath FROM Media WHERE id = ?", medium_id)[0]["picpath"]
 
             puts("OLD RELATIVE PATH: #{old_relative_path}")
-
-            # Delete old image if it exists
-            if not old_relative_path[0]["picpath"] == nil
-                old_path = File.join("./public/img/uploaded_img/media", old_relative_path[0]["picpath"])
-                File.delete(old_path)
-            end
 
             path = File.join("./public/img/uploaded_img/media", updated_medium[:img_file][:filename])
             File.open(path, "wb") { |f| f.write(updated_medium[:img_file][:tempfile].read) }
@@ -448,6 +518,8 @@ module Model
                 updated_medium[:img_file][:filename],
                 medium_id
             )
+
+            clean_medium_pic(db, old_relative_path) if not old_relative_path == nil
         end
 
         db.execute(
@@ -466,49 +538,63 @@ module Model
 
         updated_medium[:authors].each do |author|
             author_id = db.execute("SELECT id FROM Author WHERE name = ? ", author)
+            next if author_ids.include? author_id[0]
             if author_id.empty?
+                puts("#{author} FINNS INTE!!!")
                 puts("INSERTING #{author}")
                 db.execute("INSERT INTO Author (name) VALUES (?)", author)
-                author_id = [["id" => db.last_insert_row_id()]]
+                author_id = ["id" => db.last_insert_row_id()]
                 #puts("AUTHOR ID: #{author_id}")
             end
             author_ids.push(author_id[0]["id"])
-
-            media_author_relation =
-                db.execute(
-                    "SELECT * FROM Media_author_relation WHERE author_id = ? AND media_id = ? ",
-                    author_id[0]["id"],
-                    medium_id
-                )
-            if media_author_relation.empty?
-                db.execute(
-                    "INSERT INTO Media_author_relation (author_id, media_id) VALUES (?, ?)",
-                    author_id[0]["id"],
-                    medium_id
-                )
-            end
+            insert_media_author_relation(db, author_id[0]["id"], medium_id)
         end
+
         clean_authors(db, author_ids, medium_id)
 
         # HANDLE GENRES
         genre_ids = []
         updated_medium[:genres].each do |genre|
             genre_id = db.execute("SELECT id FROM Genre WHERE name = ? ", genre)
+            next if genre_ids.include? genre_id[0]
             if genre_id.empty?
                 db.execute("INSERT INTO Genre (name) VALUES (?)", genre)
-                genre_id = [["id" => db.last_insert_row_id()]]
+                genre_id = ["id" => db.last_insert_row_id()]
             end
 
             genre_ids.push(genre_id[0]["id"])
-
-            db.execute(
-                "INSERT INTO Media_genre_relation (genre_id, media_id) VALUES (?, ?)",
-                genre_id[0]["id"],
-                medium_id
-            )
+            insert_media_genre_relation(db, genre_id[0]["id"], medium_id)
         end
-
         clean_genres(db, genre_ids, medium_id)
+    end
+
+    def delete_medium(db, medium_id)
+        if does_medium_exist(db, medium_id)
+            db.execute("DELETE FROM Media WHERE id = ?", medium_id)
+            clean_genres(db, [], medium_id)
+            clean_authors(db, [], medium_id)
+        else
+            raise "Medium is not found."
+        end
+    end
+
+    def validate_username(db, username)
+        raise "En användare med det användarnamnet existerar redan." if does_username_exist(db, username)
+        # VALIDATING
+        if username.match(/[^a-zA-Z\d]/)
+            raise "Användarnamnet innehåller förbjudna karraktärer. Endast a-z och siffror är tillåtna."
+        end
+        raise "Användarnamnet måste vara minst 2 karraktärer långt" if username.length < 2
+        raise "Användarnamnet får max var 32 karraktärer långt" if username.length > 32
+    end
+
+    def validate_password(password, password_confirmation)
+        raise "Lösenorden matchar inte." if password != password_confirmation
+        raise "Lösenordet måste vara minst 6 karraktärer långt" if password.length < 6
+        raise "Lösenordet får max var 32 karraktärer långt" if password.length > 32
+        if password.match(/[^a-zA-Z\d@$#!?%^&*]/)
+            raise "Lösenordet innehåller förbjudna karraktärer. Endast bokstäver, siffror och symbolerna @$#!?%^&* är tillåtna."
+        end
     end
 
     # Creates a new user in the database
@@ -520,22 +606,8 @@ module Model
     #
     # @return [Number] the id of the new user
     def create_user(db, username, password, password_confirmation)
-        raise "En användare med det användarnamnet existerar redan." if does_user_exist(db, username)
-        raise "Lösenorden matchar inte." if password != password_confirmation
-        # VALIDATING
-        if username.match(/[^a-zA-Z\d]/)
-            raise "Användarnamnet innehåller förbjudna karraktärer. Endast bokstäver och siffror är tillåtna."
-        end
-        raise "Användarnamnet måste vara minst 2 karraktärer långt" if username.length < 2
-        raise "Användarnamnet får max var 32 karraktärer långt" if username.length > 32
-
-        raise "Lösenordet måste vara minst 6 karraktärer långt" if password.length < 6
-        raise "Lösenordet får max var 32 karraktärer långt" if password.length > 32
-        if password.match(/[^a-zA-Z\d@$#!?%^&*]/)
-            raise "Lösenordet innehåller förbjudna karraktärer. Endast bokstäver, siffror och symbolerna @$#!?%^&* är tillåtna."
-        end
-        #
-
+        validate_username(db, username)
+        validate_password(password, password_confirmation)
         password_digest = BCrypt::Password.create(password)
         db.execute(
             "INSERT INTO User (name, pwddigest, type, picpath, creation_date) VALUES (?, ?, ?, ?, ?)",
@@ -546,5 +618,48 @@ module Model
             Time.now.to_i
         )
         return db.last_insert_row_id
+    end
+
+    def update_user(db, user_id, updated_user)
+        if does_user_id_exist(db, user_id)
+            db.execute("UPDATE User SET type = ? WHERE id = ?", updated_user[:type], user_id)
+
+            username = updated_user[:username]
+            if username && username.length > 0
+                validate_username(db, updated_user[:username])
+                db.execute("UPDATE User SET name = ? WHERE id = ?", username, user_id)
+            end
+
+            if updated_user[:user_pic] && updated_user[:user_pic] != ""
+                write_image(updated_user[:user_pic][:filename], "profile", updated_user[:user_pic][:tempfile])
+                old_user_pic = db.execute("SELECT picpath FROM User WHERE id = ?", user_id)[0]["picpath"]
+                db.execute("UPDATE User SET picpath = ? WHERE id = ?", updated_user[:user_pic][:filename], user_id)
+                clean_user_pic(db, old_user_pic)
+            end
+
+            password = updated_user[:password]
+            password_confirmation = updated_user[:password_confirmation]
+            if password && password != "" && password_confirmation
+                validate_password(password, password_confirmation)
+                password_digest = BCrypt::Password.create(password)
+                db.execute("UPDATE User SET pwddigest = ? WHERE id = ?", password_digest, user_id)
+            end
+        else
+            raise "User does not exist"
+        end
+    end
+
+    # Deletes a user from the database
+    #
+    # @param [SQLite3::Database] database where users are stored
+    # @param [Number] the user ID of the to-be deleted user
+    #
+    # @return [Nil]
+    def delete_user(db, user_id)
+        if does_user_id_exist(db, user_id)
+            db.execute("DELETE FROM User WHERE id = ?", user_id)
+        else
+            raise "User does not exist"
+        end
     end
 end

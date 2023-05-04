@@ -8,3 +8,6 @@ form action="/media/#{medium["id"]}/update" method="POST" enctype="multipart/for
     input type="text" name="medium_authors" value=author_ids_to_names(db, medium[:author_ids]).join(",") placeholder="Namn1,Namn2,Namn3" required="true"/ 
     input type="text" name="medium_genres" value=genre_ids_to_names(db, medium[:genre_ids]).join(",") placeholder="Genre1,Genre2,Genre3" require="true"/
     input type="submit" value="Publicera"
+
+form action="/media/#{medium["id"]}/delete" method="POST"
+    input type="submit" value="Ta bort medium"

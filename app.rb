@@ -28,31 +28,78 @@ db.execute("PRAGMA foreign_keys = ON")
 # @param [String] :content, The new content of the article
 #
 # @see Model#delete_article
-
 get("/") do
     # Replace 1 with user_id
-    followings_reviews = followings_reviews(db, 1)
+    followings_reviews = followings_reviews(db, 2)
     slim(:"index", locals: { document_title: "Hem", followings_reviews: followings_reviews, db: db })
 end
+
+# Display site for logging in into a user
+get("/login") { slim(:"login", locals: { document_title: "Alla användare", users: users(db), db: db }) }
 
 # Displays all users registred in the database
 #
 # @see Model#users
 get("/users") { slim(:"users/index", locals: { document_title: "Alla användare", users: users(db), db: db }) }
 
-get("/users/:user_id") do
-    user_id = params[:user_id].to_i
-    user = users(db, [user_id])
-    puts("USER: #{user}")
-    return display_error(404, "User not found.") if user.empty?
-
-    slim(:"users/show", locals: { document_title: "Användare", user: user[0], db: db })
-end
-
 # Displays the meny for creating media
 get("/users/new") do
     ## ADD IF LOGGED IN REDIRECT TO INDEX
     slim(:"users/new", locals: { document_title: "Skapa ett konto" })
+end
+
+# Displays information about a specified user from the database
+#
+# @param [String] :user_id, the id of the user that is being looked up
+#
+# @see Model#users
+get("/users/:user_id") do
+    user_id = params[:user_id].to_i
+    user = users(db, [user_id])
+    puts("USER: #{user}")
+    return display_error("User not found.") if user.empty?
+
+    slim(:"users/show", locals: { document_title: "Användare", user: user[0], db: db })
+end
+
+# Displays a menu for editing users
+#
+# @param [String] :user_id, the id of the user that is edited
+#
+# @see Model#users
+get("/users/:user_id/edit") do
+    user_id = params[:user_id].to_i
+    user = users(db, [user_id])
+    puts("USER: #{user}")
+    return display_error("User not found.") if user.empty?
+
+    slim(:"users/edit", locals: { document_title: "Ändra användare", user: user[0], db: db })
+end
+
+post("/users/:user_id/update") do
+    user_id = params[:user_id].to_i
+    updated_user = {
+        username: params[:username],
+        password: params[:password],
+        password_confirmation: params[:password_confirmation],
+        type: params[:type] ? "mod" : "user",
+        user_pic: params[:user_pic]
+    }
+    begin
+        update_user(db, user_id, updated_user)
+    rescue Exception => e
+        display_error(e)
+    end
+end
+
+post("/users/:user_id/delete") do
+    user_id = params[:user_id].to_i
+    begin
+        delete_user(db, user_id)
+        redirect("/users")
+    rescue Exception => e
+        display_error(e)
+    end
 end
 
 # Creates a new user in the database
@@ -66,12 +113,11 @@ post("/users") do
     username = params[:username]
     password = params[:password]
     password_confirmation = params[:password_confirmation]
-
     begin
         user_id = create_user(db, username, password, password_confirmation)
         redirect("/login")
     rescue Exception => e
-        display_error(422, e)
+        display_error(e)
     end
 end
 
@@ -90,15 +136,14 @@ get("/media/new") { slim(:"media/new", locals: { document_title: "Lägg till ett
 # @param [String] :medium_creation_date, the creation date of the to-be created medium using an acceptable format that can be passed into the Date.parse function.
 # @param [String] :medium_authors, the authors of the to-be created medium. NOTE, the authors are the ones who created the original medium refered to in the website, not the people who posted it to the webiste.
 # @param [String] :medium_genres, the genres of this medium
-# @param [String] :img_file, the uploaded image file through a HTML form
+# @param [Hash, nil] :img_file, the uploaded image file through a HTML form, Is nil if no image has been uploaded
 #
 # @see Model#create_medium
 post("/media") do
-    unix_date = Date.parse(params[:medium_creation_date]).to_time.to_i
     medium = {
         name: params[:medium_name],
         type: params[:medium_type],
-        creation_date: unix_date,
+        creation_date: date_string_to_unix(params[:medium_creation_date]),
         authors: params[:medium_authors].split(","),
         genres: params[:medium_genres].split(","),
         img_file: params[:medium_pic]
@@ -146,7 +191,7 @@ get("/media/:medium_id/edit") do
 
     medium = media(db, medium_id)
 
-    display_error(404, "The medium ID specified does not exist.") if medium.empty?
+    display_error("The medium ID specified does not exist.") if medium.empty?
     slim(:"media/edit", locals: { db: db, document_title: "Uppdatera mediumet", medium: medium })
 end
 
@@ -166,23 +211,33 @@ post("/media/:medium_id/update") do
     updated_medium = {
         name: params[:medium_name],
         type: params[:medium_type],
-        creation_date: params[:medium_creation_date],
+        creation_date: date_string_to_unix(params[:medium_creation_date]),
         authors: params[:medium_authors].split(","),
         genres: params[:medium_genres].split(","),
         img_file: params[:medium_pic]
     }
 
-    updated_medium.each do |attribute, value|
-        print("ATTRIBUTE: #{attribute.class} VALUE: #{value.class}")
-        if (!value || value == "") && attribute != :img_file
-            puts("DISPLAYING PARAMETER ERROR")
-            return display_error(400, "Parameter #{attribute} is missing from the request or is nil")
-        end
-    end
+    #updated_medium.each do |attribute, value|
+    #    print("ATTRIBUTE: #{attribute.class} VALUE: #{value.class}")
+    #    if (!value || value == "") && attribute != :img_file
+    #        puts("DISPLAYING PARAMETER ERROR")
+    #        return display_error("Parameter #{attribute} is missing from the request or is nil")
+    #    end
+    #end
 
     update_medium(db, medium_id, updated_medium)
 
     redirect("/media/#{medium_id}")
+end
+
+post("/media/:medium_id/delete") do
+    medium_id = params[:medium_id]
+    begin
+        delete_medium(db, medium_id)
+        redirect("/media")
+    rescue Exception => e
+        display_error(e)
+    end
 end
 
 # Finds all reviews beloumging to a media
@@ -204,7 +259,7 @@ get("/media/:media_id/reviews/new") do
 
     user_id = 1
     if does_user_have_review(db, user_id, media_id)
-        return display_error(400, "User does already have a review for this medium.")
+        return display_error("User does already have a review for this medium.")
     end
 
     slim(:"review/new", locals: { document_title: "Ny recension", media_id: media_id, db: db })
@@ -228,7 +283,7 @@ post("/media/:media_id/reviews") do
         new_review_id = create_review(db, media_id, user_id, review_rating, review_desc)
         redirect("/media/#{media_id}/reviews/#{new_review_id}")
     rescue Exception => e
-        display_error(400, e)
+        display_error(e)
     end
 
     #slim(:"review/new", locals: { document_title: "Ny recension", media_id: media_id, db: db })
@@ -302,7 +357,7 @@ end
 # @param [Integer] :review_id, The ID of the review
 #
 # @see Model#update_review
-post("/media/:media_id/reviews/:review_id/edit") do
+post("/media/:media_id/reviews/:review_id/update") do
     media_id = params[:media_id].to_i
     review_id = params[:review_id].to_i
 

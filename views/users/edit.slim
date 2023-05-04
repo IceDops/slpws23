@@ -1,0 +1,15 @@
+- if user["type"] == "mod"
+    - checked = true
+- else 
+    - checked = false
+
+form action="/users/#{user["id"]}/update" method="POST"
+    input type="text" name="username"  placeholder="Användarnamn"/
+    input type="checkbox" name="type" value="checked" checked=checked Mod 
+    input type="file" name="user_pic" PFP
+    input type="text" name="password" placeholder="Nytt lösenord"
+    input type="text" name="password_confirmation" placeholder="Bekräfta nytt lösenord"
+    input type="submit" value="Ändra"
+
+form action="/users/#{user["id"]}/delete" method="POST"
+    input type="submit" value="Ta bort användare"
