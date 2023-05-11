@@ -3,9 +3,10 @@
 - else 
     - checked = false
 
-form action="/users/#{user["id"]}/update" method="POST"
+form action="/users/#{user["id"]}/update" method="POST" enctype="multipart/form-data"
     input type="text" name="username"  placeholder="Användarnamn"/
-    input type="checkbox" name="type" value="checked" checked=checked Mod 
+    - if users(db,[session[:user_id]])[0]["type"] == "mod"
+        input type="checkbox" name="type" value="checked" checked=checked Mod 
     input type="file" name="user_pic" PFP
     input type="text" name="password" placeholder="Nytt lösenord"
     input type="text" name="password_confirmation" placeholder="Bekräfta nytt lösenord"

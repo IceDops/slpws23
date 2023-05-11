@@ -12,6 +12,7 @@
 # @return [Hash]
 #   * :error [Boolean] whether an error occured
 #   * :message [String] the error message
+
 helpers do
     def user_ids_to_names(db, user_ids)
         return users(db, user_ids).map { |user| user["name"] }
@@ -27,7 +28,6 @@ helpers do
 
     def author_ids_to_names(db, author_ids)
         author_names = []
-        print(author_ids)
         author_ids.each do |author_id|
             author_names.push(
                 db.execute("SELECT Author.name FROM Author WHERE Author.id = ?;", author_id)[0]["name"]
@@ -46,26 +46,54 @@ helpers do
 end
 
 module Model
-    def database(path)
+    # Checks if data is nil or empty string
+    #
+    # @param [String | Nil] data the data that is going to be checked
+    def empty_or_nil(data)
+        return true if data == "" || !data
+
+        return false
+    end
+
+    # Opens a database file
+    #
+    # @return [SQLite3::Database] the database
+    def database()
         db = SQLite3::Database.new("db/main.db")
         db.results_as_hash = true
         return db
     end
 
+    # Takes usernames and finds their ids
+    #
+    # @param [SQLite3::Database] db the database where users are stored
+    # @param [Array<String>] usernames the usernames belonging to ids
+    #
+    # @return [Array<Number>] the user ids that the usernames belong to
+    def usernames_to_ids(db, usernames)
+        user_ids = []
+        usernames.each do |username|
+            user_ids.push(db.execute("SELECT id FROM User WHERE name = ?", username)[0]["id"])
+        end
+        return user_ids
+    end
+
     # Converts a date string from an HTML form to an unix timestamp
     #
-    # @param [String] the date string from an HTML form
+    # @param [String] date_string the date string from an HTML form
     #
     # @return [Number] The unix timestamp
-    def date_string_to_unix(string)
-        return Date.parse(string).to_time.to_i
+    def date_string_to_unix(date_string)
+        parsed_date = Date.parse(date_string)
+
+        return parsed_date.to_time.to_i
     end
 
     # Checks if review ID exist and belongs belongs to a certain media in the database
     #
-    # @param [SQLite3::Database] database where review is stored
-    # @param [Number] the media's id in the database
-    # @param [Number] the review's id in the database
+    # @param [SQLite3::Database] db database where review is stored
+    # @param [Number] media_id the media's id in the database
+    # @param [Number] review_id the review's id in the database
     #
     # @return [Boolean] if it exist
     def does_review_exist(db, media_id, review_id)
@@ -79,25 +107,21 @@ module Model
 
     # Checks if user has already published a review for a specific media
     #
-    # @param [SQLite3::Database] database where review is stored
-    # @param [Number] the media's id in the database
-    # @param [Number] the ID belongning to the user that is being checked
+    # @param [SQLite3::Database] db database where review is stored
+    # @param [Number] user_id the media's id in the database
+    # @param [Number] media_id the ID belongning to the user that is being checked
     #
     # @return [Boolean] if it exist
     def does_user_have_review(db, user_id, media_id)
-        puts("Does user already have review?")
         user_reviews = db.execute("SELECT * FROM Review WHERE user_id = ? AND media_id = ?", user_id, media_id)
-        if user_reviews.empty?
-            puts("USER #{user_id} DOES NOT HAVE REVIEWS")
-            return false
-        end
+        return false if user_reviews.empty?
         return true
     end
 
     # Checks if a user with the specified username exist in the database
     #
-    # @param [SQLite3::Database] database where review is stored
-    # @param [String] the username that is going to be checked
+    # @param [SQLite3::Database] db database where review is stored
+    # @param [String] username the username that is going to be checked
     #
     # @return [Boolean] if it exist
     def does_username_exist(db, username)
@@ -107,8 +131,8 @@ module Model
 
     # Checks if a user with the specified ID exist in the database
     #
-    # @param [SQLite3::Database] database where review is stored
-    # @param [Number] the user ID that is going to be checked
+    # @param [SQLite3::Database] db database where review is stored
+    # @param [Number] user_id the user ID that is going to be checked
     #
     # @return [Boolean] if it exist
     def does_user_id_exist(db, user_id)
@@ -116,6 +140,11 @@ module Model
         return true
     end
 
+    # Checks if a medium exist in the database
+    #
+    # @param [SQLite3::Database] db database where medium is stored
+    # @param [Number] medium_id the id of the medium that is being looked up
+    # @return [Boolean] does it exist?
     def does_medium_exist(db, medium_id)
         return false if db.execute("SELECT * FROM Media WHERE id = ?", medium_id).empty?
         return true
@@ -123,14 +152,28 @@ module Model
 
     # Displays an error site customized with the error provided
     #
-    # @param [Number] the HTTP response status code the error is going to have
-    # @param [Number] the error message that will be displayed
+    # @param [SQLite3::Database] db database where information about users are stored
+    # @param [Number] msg the error message that will be displayed
     #
     # @return [Nil]
-    def display_error(msg)
-        slim(:"error", locals: { document_title: "Error", error_message: msg })
+    def display_error(db, msg)
+        slim(:"error", locals: { document_title: "Error", error_message: msg, db: db })
     end
 
+    # Fetches information about users from the database
+    #
+    # @param [SQLite3::Database] db database where information about users are stored
+    # @param [Array<Number>, Nil] user_ids the ids of the users which are being looked up in the database. If nil all of the users in the database will be looked up
+    #
+    # @return [Array<Hash>] the information about users
+    #   * "id" [Number] the id of a user
+    #   * "name" [String] the name of theuser
+    #   * "pwddigest" [String] the user's hashed password
+    #   * "type" [String] the user type: either "mod" or "user"
+    #   * "picpath" [String, Nil] the optional user pfp
+    #   * "creation_date" [Number] a unix timestamp representing the creation date of the user
+    #   * :following_ids [Array<Number>] the ids of the users that this user follows
+    #   * :follower_ids [Array<Number>] the ids of the users that follows this user
     def users(db, user_ids = nil)
         users = []
         user_ids = db.execute("SELECT id FROM User").map { |id_obj| id_obj["id"] } if user_ids == nil
@@ -160,6 +203,10 @@ module Model
         return users
     end
 
+    # Finds information about a specifc medium in the database
+    #
+    # @param [SQLite3::Database] db database where information about media are stored
+    # @param [Number]
     def media(db, media_id)
         sought_media = db.execute("SELECT * FROM Media WHERE Media.id = ?", media_id)
         return [] if sought_media.empty?
@@ -225,7 +272,6 @@ module Model
     end
 
     def followings_reviews(db, user_id)
-        puts("USER ID: #{user_id}")
         followings = users(db, [user_id])[0][:following_ids]
 
         #print("Followings: ")
@@ -235,7 +281,6 @@ module Model
         followings.each { |following| followings_reviews = followings_reviews + user_reviews(db, following) }
 
         followings_reviews = followings_reviews.sort_by { |review| review["creation_date"] * -1 }
-
         return followings_reviews
     end
 
@@ -264,6 +309,10 @@ module Model
     #
     # @return [Boolean] was it updated?
     def update_review(db, media_id, review_id, updated_review)
+        if empty_or_nil(updated_review[:edited_review_desc]) ||
+                  empty_or_nil(updated_review[:edited_review_rating])
+            raise "Alla fält är inte ifyllda."
+        end
         if does_review_exist(db, media_id, review_id)
             db.execute(
                 "UPDATE Review
@@ -306,7 +355,8 @@ module Model
     #
     # @return [Number] the id of the newly created revi ew
     def create_review(db, media_id, user_id, rating, desc)
-        print("USER IS SITLL #{user_id}")
+        raise "Alla fält är inte ifyllda." if empty_or_nil(rating) || empty_or_nil(desc)
+
         raise "User review already exist for this media." if (does_user_have_review(db, user_id, media_id))
         db.execute(
             "INSERT INTO Review (media_id, user_id, rating, content, creation_date) VALUES (?, ?, ?, ?, ?)",
@@ -365,9 +415,9 @@ module Model
     # @param [Hash] the medium to be created
     #   * :name [String] the medium name
     #   * :type [String] the medium type (book, song, etc.)
-    #   * :creation_date [Number] the unix timestamp for the mediums creation date
-    #   * :authors [Array<String>] the original authors of the medium
-    #   * :genres [Array<String>] the genres belonging to the medium
+    #   * :creation_date [String] the date submited from the HTML form
+    #   * :authors [String] the original authors of the medium
+    #   * :genres [String] the genres belonging to the medium
     #   * :img_file [Hash, Nil] the hash of the img file. It has the structure of a uploaded file through a HTMl form.
     #
     # @return [Number] the id of the newly created medium
@@ -375,7 +425,12 @@ module Model
         img_file = nil
         if medium[:img_file]
             img_file = medium[:img_file]
-            write_image(medium[:img_file][:filename], media, medium[:img_file][:tempfile])
+            write_image(medium[:img_file][:filename], "media", medium[:img_file][:tempfile])
+        end
+
+        if empty_or_nil(medium[:name]) || empty_or_nil(medium[:type]) || empty_or_nil(medium[:creation_date]) ||
+                  empty_or_nil(medium[:authors]) || empty_or_nil(medium[:genres])
+            raise "Resterande fält utöver bild-uppladningslådan måste vara ifyllda "
         end
 
         db.execute(
@@ -383,32 +438,36 @@ module Model
             medium[:name],
             nil,
             medium[:type],
-            medium[:creation_date],
-            medium[:img_file]
+            date_string_to_unix(medium[:creation_date]),
+            medium[:img_file] ? medium[:img_file][:filename] : nil
         )
 
         media_id = db.last_insert_row_id()
 
-        medium[:authors].each do |author|
-            author_id = db.execute("SELECT id FROM Author WHERE name = ? ", author)
+        medium[:authors]
+            .split(",")
+            .each do |author|
+                author_id = db.execute("SELECT id FROM Author WHERE name = ? ", author)
 
-            if author_id.empty?
-                db.execute("INSERT INTO Author (name) VALUES (?)", author)
-                author_id = ["id" => db.last_insert_row_id()]
+                if author_id.empty?
+                    db.execute("INSERT INTO Author (name) VALUES (?)", author)
+                    author_id = ["id" => db.last_insert_row_id()]
+                end
+                insert_media_author_relation(db, author_id[0]["id"], media_id)
             end
-            insert_media_author_relation(db, author_id[0]["id"], media_id)
-        end
 
         print("LOOKING FOR GENRES IN #{medium}")
-        medium[:genres].each do |genre|
-            print("INSERTING genre: #{genre}")
-            genre_id = db.execute("SELECT * FROM Genre WHERE name = ? ", genre)
-            if genre_id.empty?
-                db.execute("INSERT INTO Genre (name) VALUES (?)", genre)
-                genre_id = ["id" => db.last_insert_row_id()]
+        medium[:genres]
+            .split(",")
+            .each do |genre|
+                print("INSERTING genre: #{genre}")
+                genre_id = db.execute("SELECT * FROM Genre WHERE name = ? ", genre)
+                if genre_id.empty?
+                    db.execute("INSERT INTO Genre (name) VALUES (?)", genre)
+                    genre_id = ["id" => db.last_insert_row_id()]
+                end
+                insert_media_genre_relation(db, genre_id[0]["id"], media_id)
             end
-            insert_media_genre_relation(db, genre_id[0]["id"], media_id)
-        end
 
         return media_id
     end
@@ -419,11 +478,9 @@ module Model
     #
     # @return [Nil]
     def clean_authors(db, author_ids, medium_id)
-        puts("CLEANING FOR AUTHOR_IDS: #{author_ids}")
         medium_relations = db.execute("SELECT * FROM Media_author_relation WHERE media_id = ?", medium_id)
         medium_relations.each do |medium_relation|
             if not author_ids.include? medium_relation["author_id"]
-                puts("DELETING RELATION: #{medium_relation}")
                 db.execute(
                     "DELETE FROM Media_author_relation WHERE media_id = ? AND author_id = ?",
                     medium_id,
@@ -497,17 +554,21 @@ module Model
     # @param [Hash] the properites of the edited medium
     #   * :name [String] the new medium name
     #   * :type [String] the new medium type (book, song, etc.)
-    #   * :creation_date [Number] the new unix timestamp for the mediums creation date
-    #   * :authors [Array<String>] the new original authors of the medium
-    #   * :genres [Array<String>] the new genres belonging to the medium
+    #   * :creation_date [String] the medium's new creation date uploaded through an HTML form
+    #   * :authors [String] the new original authors of the medium
+    #   * :genres [String] the new genres belonging to the medium
     #   * :img_file [Hash, Nil] the hash of the new img file. It has the structure of a uploaded file through a HTMl form. Can be nil picture should not be changed.
     #
     # @return [Nil]
     def update_medium(db, medium_id, updated_medium)
+        if empty_or_nil(updated_medium[:name]) || empty_or_nil(updated_medium[:type]) ||
+                  empty_or_nil(updated_medium[:creation_date]) || empty_or_nil(updated_medium[:genres]) ||
+                  empty_or_nil(updated_medium[:authors])
+            raise "Vissa obligatoriska fält är inte ifyllda."
+        end
+
         if updated_medium[:img_file] != nil
             old_relative_path = db.execute("SELECT picpath FROM Media WHERE id = ?", medium_id)[0]["picpath"]
-
-            puts("OLD RELATIVE PATH: #{old_relative_path}")
 
             path = File.join("./public/img/uploaded_img/media", updated_medium[:img_file][:filename])
             File.open(path, "wb") { |f| f.write(updated_medium[:img_file][:tempfile].read) }
@@ -528,43 +589,43 @@ module Model
                 WHERE id = ?; ",
             updated_medium[:name],
             updated_medium[:type],
-            updated_medium[:creation_date],
+            date_string_to_unix(updated_medium[:creation_date]),
             medium_id
         )
 
         author_ids = []
 
-        puts("AUTHORS: #{updated_medium[:authors]}")
-
-        updated_medium[:authors].each do |author|
-            author_id = db.execute("SELECT id FROM Author WHERE name = ? ", author)
-            next if author_ids.include? author_id[0]
-            if author_id.empty?
-                puts("#{author} FINNS INTE!!!")
-                puts("INSERTING #{author}")
-                db.execute("INSERT INTO Author (name) VALUES (?)", author)
-                author_id = ["id" => db.last_insert_row_id()]
-                #puts("AUTHOR ID: #{author_id}")
+        updated_medium[:authors]
+            .split(",")
+            .each do |author|
+                author_id = db.execute("SELECT id FROM Author WHERE name = ? ", author)
+                next if author_ids.include? author_id[0]
+                if author_id.empty?
+                    db.execute("INSERT INTO Author (name) VALUES (?)", author)
+                    author_id = ["id" => db.last_insert_row_id()]
+                    #puts("AUTHOR ID: #{author_id}")
+                end
+                author_ids.push(author_id[0]["id"])
+                insert_media_author_relation(db, author_id[0]["id"], medium_id)
             end
-            author_ids.push(author_id[0]["id"])
-            insert_media_author_relation(db, author_id[0]["id"], medium_id)
-        end
 
         clean_authors(db, author_ids, medium_id)
 
         # HANDLE GENRES
         genre_ids = []
-        updated_medium[:genres].each do |genre|
-            genre_id = db.execute("SELECT id FROM Genre WHERE name = ? ", genre)
-            next if genre_ids.include? genre_id[0]
-            if genre_id.empty?
-                db.execute("INSERT INTO Genre (name) VALUES (?)", genre)
-                genre_id = ["id" => db.last_insert_row_id()]
-            end
+        updated_medium[:genres]
+            .split(",")
+            .each do |genre|
+                genre_id = db.execute("SELECT id FROM Genre WHERE name = ? ", genre)
+                next if genre_ids.include? genre_id[0]
+                if genre_id.empty?
+                    db.execute("INSERT INTO Genre (name) VALUES (?)", genre)
+                    genre_id = ["id" => db.last_insert_row_id()]
+                end
 
-            genre_ids.push(genre_id[0]["id"])
-            insert_media_genre_relation(db, genre_id[0]["id"], medium_id)
-        end
+                genre_ids.push(genre_id[0]["id"])
+                insert_media_genre_relation(db, genre_id[0]["id"], medium_id)
+            end
         clean_genres(db, genre_ids, medium_id)
     end
 
@@ -606,6 +667,10 @@ module Model
     #
     # @return [Number] the id of the new user
     def create_user(db, username, password, password_confirmation)
+        if empty_or_nil(username) || empty_or_nil(password) || empty_or_nil(password_confirmation)
+            raise "Alla fält måste vara ifyllda"
+        end
+
         validate_username(db, username)
         validate_password(password, password_confirmation)
         password_digest = BCrypt::Password.create(password)
@@ -622,7 +687,13 @@ module Model
 
     def update_user(db, user_id, updated_user)
         if does_user_id_exist(db, user_id)
-            db.execute("UPDATE User SET type = ? WHERE id = ?", updated_user[:type], user_id)
+            password = updated_user[:password]
+            password_confirmation = updated_user[:password_confirmation]
+            if password && password != "" && password_confirmation
+                validate_password(password, password_confirmation)
+                password_digest = BCrypt::Password.create(password)
+                db.execute("UPDATE User SET pwddigest = ? WHERE id = ?", password_digest, user_id)
+            end
 
             username = updated_user[:username]
             if username && username.length > 0
@@ -630,19 +701,13 @@ module Model
                 db.execute("UPDATE User SET name = ? WHERE id = ?", username, user_id)
             end
 
+            db.execute("UPDATE User SET type = ? WHERE id = ?", updated_user[:type], user_id)
+
             if updated_user[:user_pic] && updated_user[:user_pic] != ""
                 write_image(updated_user[:user_pic][:filename], "profile", updated_user[:user_pic][:tempfile])
                 old_user_pic = db.execute("SELECT picpath FROM User WHERE id = ?", user_id)[0]["picpath"]
                 db.execute("UPDATE User SET picpath = ? WHERE id = ?", updated_user[:user_pic][:filename], user_id)
-                clean_user_pic(db, old_user_pic)
-            end
-
-            password = updated_user[:password]
-            password_confirmation = updated_user[:password_confirmation]
-            if password && password != "" && password_confirmation
-                validate_password(password, password_confirmation)
-                password_digest = BCrypt::Password.create(password)
-                db.execute("UPDATE User SET pwddigest = ? WHERE id = ?", password_digest, user_id)
+                clean_user_pic(db, old_user_pic) if old_user_pic
             end
         else
             raise "User does not exist"
@@ -660,6 +725,18 @@ module Model
             db.execute("DELETE FROM User WHERE id = ?", user_id)
         else
             raise "User does not exist"
+        end
+    end
+
+    def validate_login(db, username, password)
+        raise "Användarnamn eller lösenord är felaktigt." if !does_username_exist(db, username)
+        user_id = usernames_to_ids(db, [username])[0]
+        password_digest = db.execute("SELECT pwddigest FROM User WHERE id = ?", user_id)[0]["pwddigest"]
+
+        if BCrypt::Password.new(password_digest) == password
+            return user_id
+        else
+            raise "Användarnamn eller lösenord är felaktigt."
         end
     end
 end

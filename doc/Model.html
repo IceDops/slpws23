@@ -103,6 +103,100 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#clean_authors-instance_method" title="#clean_authors (instance method)">#<strong>clean_authors</strong>(db, author_ids, medium_id)  &#x21d2; Nil </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#clean_genres-instance_method" title="#clean_genres (instance method)">#<strong>clean_genres</strong>(db, genre_ids, medium_id)  &#x21d2; Nil </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Remove old relations between genres and medium.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#clean_medium_pic-instance_method" title="#clean_medium_pic (instance method)">#<strong>clean_medium_pic</strong>(db, filename)  &#x21d2; Nil </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Deletes a medium cover picture stored in the project folder if it’s not being used by any medium.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#clean_user_pic-instance_method" title="#clean_user_pic (instance method)">#<strong>clean_user_pic</strong>(db, filename)  &#x21d2; Nil </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Deletes a pfp stored in the project folder if it’s not being used by any user.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#create_medium-instance_method" title="#create_medium (instance method)">#<strong>create_medium</strong>(db, medium)  &#x21d2; Number </a>
     
 
@@ -151,7 +245,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create_user-instance_method" title="#create_user (instance method)">#<strong>create_user</strong>(db, username, password, password_confirmation)  &#x21d2; Object </a>
+      <a href="#create_user-instance_method" title="#create_user (instance method)">#<strong>create_user</strong>(db, username, password, password_confirmation)  &#x21d2; Number </a>
     
 
     
@@ -165,7 +259,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Creates a new user in the database.</p>
+</div></span>
   
 </li>
 
@@ -173,7 +269,55 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#database-instance_method" title="#database (instance method)">#<strong>database</strong>(path)  &#x21d2; Object </a>
+      <a href="#database-instance_method" title="#database (instance method)">#<strong>database</strong>  &#x21d2; SQLite3::Database </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Opens a database file.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#date_string_to_unix-instance_method" title="#date_string_to_unix (instance method)">#<strong>date_string_to_unix</strong>(date_string)  &#x21d2; Number </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Converts a date string from an HTML form to an unix timestamp.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete_medium-instance_method" title="#delete_medium (instance method)">#<strong>delete_medium</strong>(db, medium_id)  &#x21d2; Object </a>
     
 
     
@@ -219,7 +363,31 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#display_error-instance_method" title="#display_error (instance method)">#<strong>display_error</strong>(status, msg)  &#x21d2; Nil </a>
+      <a href="#delete_user-instance_method" title="#delete_user (instance method)">#<strong>delete_user</strong>(db, user_id)  &#x21d2; Nil </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Deletes a user from the database.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#display_error-instance_method" title="#display_error (instance method)">#<strong>display_error</strong>(db, msg)  &#x21d2; Nil </a>
     
 
     
@@ -235,6 +403,30 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Displays an error site customized with the error provided.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#does_medium_exist-instance_method" title="#does_medium_exist (instance method)">#<strong>does_medium_exist</strong>(db, medium_id)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Checks if a medium exist in the database.</p>
 </div></span>
   
 </li>
@@ -267,7 +459,55 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#does_user_exist-instance_method" title="#does_user_exist (instance method)">#<strong>does_user_exist</strong>(db, username)  &#x21d2; Boolean </a>
+      <a href="#does_user_have_review-instance_method" title="#does_user_have_review (instance method)">#<strong>does_user_have_review</strong>(db, user_id, media_id)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Checks if user has already published a review for a specific media.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#does_user_id_exist-instance_method" title="#does_user_id_exist (instance method)">#<strong>does_user_id_exist</strong>(db, user_id)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Checks if a user with the specified ID exist in the database.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#does_username_exist-instance_method" title="#does_username_exist (instance method)">#<strong>does_username_exist</strong>(db, username)  &#x21d2; Boolean </a>
     
 
     
@@ -291,7 +531,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#does_user_have_review-instance_method" title="#does_user_have_review (instance method)">#<strong>does_user_have_review</strong>(db, user_id, media_id)  &#x21d2; Boolean </a>
+      <a href="#empty_or_nil-instance_method" title="#empty_or_nil (instance method)">#<strong>empty_or_nil</strong>(data)  &#x21d2; Object </a>
     
 
     
@@ -306,7 +546,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Checks if user has already published a review for a specific media.</p>
+<p>Checks if data is nil or empty string.</p>
 </div></span>
   
 </li>
@@ -381,6 +621,50 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#insert_media_author_relation-instance_method" title="#insert_media_author_relation (instance method)">#<strong>insert_media_author_relation</strong>(db, author_id, medium_id)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#insert_media_genre_relation-instance_method" title="#insert_media_genre_relation (instance method)">#<strong>insert_media_genre_relation</strong>(db, genre_id, medium_id)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#media-instance_method" title="#media (instance method)">#<strong>media</strong>(db, media_id)  &#x21d2; Object </a>
     
 
@@ -418,6 +702,30 @@
 
   
     <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update_medium-instance_method" title="#update_medium (instance method)">#<strong>update_medium</strong>(db, medium_id, updated_medium)  &#x21d2; Nil </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Updates the specified medium in the database.</p>
+</div></span>
   
 </li>
 
@@ -473,6 +781,28 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#update_user-instance_method" title="#update_user (instance method)">#<strong>update_user</strong>(db, user_id, updated_user)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#user_reviews-instance_method" title="#user_reviews (instance method)">#<strong>user_reviews</strong>(db, user_id)  &#x21d2; Object </a>
     
 
@@ -495,7 +825,55 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#users-instance_method" title="#users (instance method)">#<strong>users</strong>(db, user_ids)  &#x21d2; Object </a>
+      <a href="#usernames_to_ids-instance_method" title="#usernames_to_ids (instance method)">#<strong>usernames_to_ids</strong>(db, usernames)  &#x21d2; Array&lt;Number&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Takes usernames and finds their ids.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#users-instance_method" title="#users (instance method)">#<strong>users</strong>(db, user_ids = nil)  &#x21d2; Array&lt;Hash&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Fetches information about users from the database.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#validate_login-instance_method" title="#validate_login (instance method)">#<strong>validate_login</strong>(db, username, password)  &#x21d2; Object </a>
     
 
     
@@ -514,6 +892,74 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#validate_password-instance_method" title="#validate_password (instance method)">#<strong>validate_password</strong>(password, password_confirmation)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#validate_username-instance_method" title="#validate_username (instance method)">#<strong>validate_username</strong>(db, username)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#write_image-instance_method" title="#write_image (instance method)">#<strong>write_image</strong>(filename, folder, content)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Writes a img file uploaded thorugh an HTML form to a folder on the server.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -524,7 +970,469 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="create_medium-instance_method">
+  <h3 class="signature first" id="clean_authors-instance_method">
+  
+    #<strong>clean_authors</strong>(db, author_ids, medium_id)  &#x21d2; <tt>Nil</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>database</span>
+      
+      
+        <span class='type'>(<tt>SQLite3::Database</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>where authors and relations between the authors and the media are stored.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>the</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;Number&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>IDs of authors that belongs to the specified medium</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>the</span>
+      
+      
+        <span class='type'>(<tt>Number</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>id of the medium which the specified authors has relations to</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 469</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_clean_authors'>clean_authors</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_author_ids'>author_ids</span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_medium_relations'>medium_relations</span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM Media_author_relation WHERE media_id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_medium_relations'>medium_relations</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_medium_relation'>medium_relation</span><span class='op'>|</span>
+        <span class='kw'>if</span> <span class='kw'>not</span> <span class='id identifier rubyid_author_ids'>author_ids</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_medium_relation'>medium_relation</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>author_id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+            <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span>
+                <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DELETE FROM Media_author_relation WHERE media_id = ? AND author_id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                <span class='id identifier rubyid_medium_id'>medium_id</span><span class='comma'>,</span>
+                <span class='id identifier rubyid_medium_relation'>medium_relation</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>author_id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+            <span class='rparen'>)</span>
+            <span class='comment'># Delete the whole author if the author does not belong to any medium
+</span>            <span class='id identifier rubyid_author_relations'>author_relations</span> <span class='op'>=</span>
+                <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM Media_author_relation WHERE author_id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_medium_relation'>medium_relation</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>author_id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+            <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DELETE FROM Author WHERE id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_medium_relation'>medium_relation</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>author_id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_author_relations'>author_relations</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+        <span class='kw'>end</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="clean_genres-instance_method">
+  
+    #<strong>clean_genres</strong>(db, genre_ids, medium_id)  &#x21d2; <tt>Nil</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Remove old relations between genres and medium. Can also remove genre if does not have any relations left to media.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>database</span>
+      
+      
+        <span class='type'>(<tt>SQLite3::Database</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>where genres and relations between the genres and the media are stored.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>the</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;Number&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>IDs of genres belongs to the specified medium</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>the</span>
+      
+      
+        <span class='type'>(<tt>Number</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>id of the medium which the specified genres has relations to</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 495</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_clean_genres'>clean_genres</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_genre_ids'>genre_ids</span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_genre_relations'>genre_relations</span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM Media_genre_relation WHERE media_id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_genre_relations'>genre_relations</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_genre_relation'>genre_relation</span><span class='op'>|</span>
+        <span class='kw'>if</span> <span class='kw'>not</span> <span class='id identifier rubyid_genre_ids'>genre_ids</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_genre_relation'>genre_relation</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>genre_id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+            <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span>
+                <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DELETE FROM Media_genre_relation WHERE media_id = ? AND genre_id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                <span class='id identifier rubyid_medium_id'>medium_id</span><span class='comma'>,</span>
+                <span class='id identifier rubyid_genre_relation'>genre_relation</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>genre_id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+            <span class='rparen'>)</span>
+            <span class='comment'># Delete the whole genre if the author does not belong to any medium
+</span>            <span class='id identifier rubyid_genre_relations'>genre_relations</span> <span class='op'>=</span>
+                <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM Media_genre_relation WHERE genre_id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_genre_relation'>genre_relation</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>genre_id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+            <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DELETE FROM Genre WHERE id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_genre_relation'>genre_relation</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>genre_id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_genre_relations'>genre_relations</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+        <span class='kw'>end</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="clean_medium_pic-instance_method">
+  
+    #<strong>clean_medium_pic</strong>(db, filename)  &#x21d2; <tt>Nil</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Deletes a medium cover picture stored in the project folder if it’s not being used by any medium</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>database</span>
+      
+      
+        <span class='type'>(<tt>SQLite3::Database</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>where media pictures are stored</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>the</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>medium cover picture’s filename that is going to be deleted</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+519
+520
+521
+522
+523
+524</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 519</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_clean_medium_pic'>clean_medium_pic</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM Media WHERE picpath = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+        <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>./public/img/uploaded_img/media</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span>
+        <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="clean_user_pic-instance_method">
+  
+    #<strong>clean_user_pic</strong>(db, filename)  &#x21d2; <tt>Nil</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Deletes a pfp stored in the project folder if it’s not being used by any user</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>database</span>
+      
+      
+        <span class='type'>(<tt>SQLite3::Database</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>where media pictures are stored</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>the</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>medium cover picture’s filename that is going to be deleted</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+532
+533
+534
+535
+536
+537</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 532</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_clean_user_pic'>clean_user_pic</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM User WHERE picpath = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+        <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>./public/img/uploaded_img/profile</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span>
+        <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create_medium-instance_method">
   
     #<strong>create_medium</strong>(db, medium)  &#x21d2; <tt>Number</tt> 
   
@@ -555,7 +1463,7 @@
       
         &mdash;
         <div class='inline'>
-<p>where review is s</p>
+<p>where review is</p>
 </div>
       
     </li>
@@ -577,13 +1485,13 @@
 </li><li>
 <p>:type [String] the medium type (book, song, etc.)</p>
 </li><li>
-<p>:creation_date [Number] the unix timestamp for the mediums creation date</p>
+<p>:creation_date [String] the date submited from the HTML form</p>
 </li><li>
-<p>:authors [Array&lt;String&gt;] the original authors of the medium</p>
+<p>:authors [String] the original authors of the medium</p>
 </li><li>
-<p>:genres [Array&lt;String&gt;] the genres belonging to the medium</p>
+<p>:genres [String] the genres belonging to the medium</p>
 </li><li>
-<p>:img_file [Hash] the hash of the img file. It has the structure of a uploaded file through a HTMl form.</p>
+<p>:img_file [Hash, Nil] the hash of the img file. It has the structure of a uploaded file through a HTMl form.</p>
 </li></ul>
 </div>
       
@@ -618,109 +1526,107 @@
       <pre class="lines">
 
 
-308
-309
-310
-311
-312
-313
-314
-315
-316
-317
-318
-319
-320
-321
-322
-323
-324
-325
-326
-327
-328
-329
-330
-331
-332
-333
-334
-335
-336
-337
-338
-339
-340
-341
-342
-343
-344
-345
-346
-347
-348
-349
-350
-351
-352
-353
-354
-355
-356
-357
-358</pre>
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 308</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 413</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_medium'>create_medium</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_medium'>medium</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>./public/img/uploaded_img/media</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:img_file</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:filename</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_img_file'>img_file</span> <span class='op'>=</span> <span class='kw'>nil</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:img_file</span><span class='rbracket'>]</span>
+        <span class='id identifier rubyid_img_file'>img_file</span> <span class='op'>=</span> <span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:img_file</span><span class='rbracket'>]</span>
+        <span class='id identifier rubyid_write_image'><span class='object_link'><a href="#write_image-instance_method" title="Model#write_image (method)">write_image</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:img_file</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:filename</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>media</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:img_file</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:tempfile</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
 
-    <span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The path to the uploaded file: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path'>path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The supposed tempfile: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:img_file</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:tempfile</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-    <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>wb</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span> <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:img_file</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:tempfile</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_empty_or_nil'><span class='object_link'><a href="#empty_or_nil-instance_method" title="Model#empty_or_nil (method)">empty_or_nil</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_empty_or_nil'><span class='object_link'><a href="#empty_or_nil-instance_method" title="Model#empty_or_nil (method)">empty_or_nil</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:type</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_empty_or_nil'><span class='object_link'><a href="#empty_or_nil-instance_method" title="Model#empty_or_nil (method)">empty_or_nil</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:creation_date</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>||</span>
+              <span class='id identifier rubyid_empty_or_nil'><span class='object_link'><a href="#empty_or_nil-instance_method" title="Model#empty_or_nil (method)">empty_or_nil</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:authors</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_empty_or_nil'><span class='object_link'><a href="#empty_or_nil-instance_method" title="Model#empty_or_nil (method)">empty_or_nil</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:genres</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Resterande fält utöver bild-uppladningslådan måste vara ifyllda </span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
 
     <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span>
         <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INSERT INTO Media (name, total_rating, type, creation_date, picpath) VALUES (?, ?, ?, ?, ?)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
         <span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span>
         <span class='kw'>nil</span><span class='comma'>,</span>
         <span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:type</span><span class='rbracket'>]</span><span class='comma'>,</span>
-        <span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:creation_date</span><span class='rbracket'>]</span><span class='comma'>,</span>
+        <span class='id identifier rubyid_date_string_to_unix'><span class='object_link'><a href="#date_string_to_unix-instance_method" title="Model#date_string_to_unix (method)">date_string_to_unix</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:creation_date</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='comma'>,</span>
         <span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:img_file</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:filename</span><span class='rbracket'>]</span>
     <span class='rparen'>)</span>
 
     <span class='id identifier rubyid_media_id'>media_id</span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_last_insert_row_id'>last_insert_row_id</span><span class='lparen'>(</span><span class='rparen'>)</span>
 
-    <span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:authors</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_author'>author</span><span class='op'>|</span>
-        <span class='id identifier rubyid_author_id'>author_id</span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT id FROM Author WHERE name = ? </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_author'>author</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:authors</span><span class='rbracket'>]</span>
+        <span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+        <span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_author'>author</span><span class='op'>|</span>
+            <span class='id identifier rubyid_author_id'>author_id</span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT id FROM Author WHERE name = ? </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_author'>author</span><span class='rparen'>)</span>
 
-        <span class='kw'>if</span> <span class='id identifier rubyid_author_id'>author_id</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-            <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INSERT INTO Author (name) VALUES (?)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_author'>author</span><span class='rparen'>)</span>
-            <span class='id identifier rubyid_author_id'>author_id</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_last_insert_row_id'>last_insert_row_id</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+            <span class='kw'>if</span> <span class='id identifier rubyid_author_id'>author_id</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+                <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INSERT INTO Author (name) VALUES (?)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_author'>author</span><span class='rparen'>)</span>
+                <span class='id identifier rubyid_author_id'>author_id</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_last_insert_row_id'>last_insert_row_id</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+            <span class='kw'>end</span>
+            <span class='id identifier rubyid_insert_media_author_relation'><span class='object_link'><a href="#insert_media_author_relation-instance_method" title="Model#insert_media_author_relation (method)">insert_media_author_relation</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_author_id'>author_id</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='rparen'>)</span>
         <span class='kw'>end</span>
 
-        <span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>AUTHOR ID: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_author_id'>author_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-
-        <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span>
-            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INSERT INTO Media_author_relation (author_id, media_id) VALUES (?, ?)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-            <span class='id identifier rubyid_author_id'>author_id</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
-            <span class='id identifier rubyid_media_id'>media_id</span>
-        <span class='rparen'>)</span>
-    <span class='kw'>end</span>
-
-    <span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:genres</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_genre'>genre</span><span class='op'>|</span>
-        <span class='id identifier rubyid_genre_id'>genre_id</span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM Genre WHERE name = ? </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_genre'>genre</span><span class='rparen'>)</span>
-        <span class='kw'>if</span> <span class='id identifier rubyid_genre_id'>genre_id</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-            <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INSERT INTO Genre (name) VALUES (?)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_genre'>genre</span><span class='rparen'>)</span>
-            <span class='id identifier rubyid_genre_id'>genre_id</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_last_insert_row_id'>last_insert_row_id</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_print'>print</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>LOOKING FOR GENRES IN </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_medium'>medium</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_medium'>medium</span><span class='lbracket'>[</span><span class='symbol'>:genres</span><span class='rbracket'>]</span>
+        <span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+        <span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_genre'>genre</span><span class='op'>|</span>
+            <span class='id identifier rubyid_print'>print</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INSERTING genre: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_genre'>genre</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+            <span class='id identifier rubyid_genre_id'>genre_id</span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM Genre WHERE name = ? </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_genre'>genre</span><span class='rparen'>)</span>
+            <span class='kw'>if</span> <span class='id identifier rubyid_genre_id'>genre_id</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+                <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INSERT INTO Genre (name) VALUES (?)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_genre'>genre</span><span class='rparen'>)</span>
+                <span class='id identifier rubyid_genre_id'>genre_id</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_last_insert_row_id'>last_insert_row_id</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+            <span class='kw'>end</span>
+            <span class='id identifier rubyid_insert_media_genre_relation'><span class='object_link'><a href="#insert_media_genre_relation-instance_method" title="Model#insert_media_genre_relation (method)">insert_media_genre_relation</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_genre_id'>genre_id</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='rparen'>)</span>
         <span class='kw'>end</span>
-
-        <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span>
-            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INSERT INTO Media_genre_relation (genre_id, media_id) VALUES (?, ?)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-            <span class='id identifier rubyid_genre_id'>genre_id</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
-            <span class='id identifier rubyid_media_id'>media_id</span>
-        <span class='rparen'>)</span>
-    <span class='kw'>end</span>
 
     <span class='kw'>return</span> <span class='id identifier rubyid_media_id'>media_id</span>
 <span class='kw'>end</span></pre>
@@ -827,25 +1733,28 @@
       <pre class="lines">
 
 
-267
-268
-269
-270
-271
-272
-273
-274
-275
-276
-277
-278
-279</pre>
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 267</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 346</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_review'>create_review</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='comma'>,</span> <span class='id identifier rubyid_rating'>rating</span><span class='comma'>,</span> <span class='id identifier rubyid_desc'>desc</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_print'>print</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>USER IS SITLL </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_user_id'>user_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Alla fält är inte ifyllda.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_empty_or_nil'><span class='object_link'><a href="#empty_or_nil-instance_method" title="Model#empty_or_nil (method)">empty_or_nil</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_rating'>rating</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_empty_or_nil'><span class='object_link'><a href="#empty_or_nil-instance_method" title="Model#empty_or_nil (method)">empty_or_nil</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_desc'>desc</span><span class='rparen'>)</span>
+
     <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>User review already exist for this media.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_does_user_have_review'><span class='object_link'><a href="#does_user_have_review-instance_method" title="Model#does_user_have_review (method)">does_user_have_review</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='rparen'>)</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span>
         <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INSERT INTO Review (media_id, user_id, rating, content, creation_date) VALUES (?, ?, ?, ?, ?)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
@@ -855,6 +1764,7 @@
         <span class='id identifier rubyid_desc'>desc</span><span class='comma'>,</span>
         <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
     <span class='rparen'>)</span>
+    <span class='id identifier rubyid_update_rating'><span class='object_link'><a href="#update_rating-instance_method" title="Model#update_rating (method)">update_rating</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='rparen'>)</span>
     <span class='kw'>return</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_last_insert_row_id'>last_insert_row_id</span><span class='lparen'>(</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -865,35 +1775,156 @@
       <div class="method_details ">
   <h3 class="signature " id="create_user-instance_method">
   
-    #<strong>create_user</strong>(db, username, password, password_confirmation)  &#x21d2; <tt>Object</tt> 
+    #<strong>create_user</strong>(db, username, password, password_confirmation)  &#x21d2; <tt>Number</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Creates a new user in the database</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>database</span>
+      
+      
+        <span class='type'>(<tt>SQLite3::Database</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>where users are stored</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>the</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>username of the to-be created user</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>the</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>password of the to-be created user</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>the</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>password confirmation of the to-be created user</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Number</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the id of the new user</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-360
-361
-362
-363
-364
-365
-366</pre>
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 360</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 658</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_user'>create_user</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_username'>username</span><span class='comma'>,</span> <span class='id identifier rubyid_password'>password</span><span class='comma'>,</span> <span class='id identifier rubyid_password_confirmation'>password_confirmation</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>A user with the provided username does already exist.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_does_user_exist'><span class='object_link'><a href="#does_user_exist-instance_method" title="Model#does_user_exist (method)">does_user_exist</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_username'>username</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_empty_or_nil'><span class='object_link'><a href="#empty_or_nil-instance_method" title="Model#empty_or_nil (method)">empty_or_nil</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_username'>username</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_empty_or_nil'><span class='object_link'><a href="#empty_or_nil-instance_method" title="Model#empty_or_nil (method)">empty_or_nil</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_password'>password</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_empty_or_nil'><span class='object_link'><a href="#empty_or_nil-instance_method" title="Model#empty_or_nil (method)">empty_or_nil</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_password_confirmation'>password_confirmation</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Alla fält måste vara ifyllda</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
 
-    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Passwords does not match.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_password'>password</span> <span class='op'>!=</span> <span class='id identifier rubyid_password_confirmation'>password_confirmation</span>
-
-     
+    <span class='id identifier rubyid_validate_username'><span class='object_link'><a href="#validate_username-instance_method" title="Model#validate_username (method)">validate_username</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_username'>username</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_validate_password'><span class='object_link'><a href="#validate_password-instance_method" title="Model#validate_password (method)">validate_password</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_password'>password</span><span class='comma'>,</span> <span class='id identifier rubyid_password_confirmation'>password_confirmation</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_password_digest'>password_digest</span> <span class='op'>=</span> <span class='const'>BCrypt</span><span class='op'>::</span><span class='const'>Password</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_password'>password</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INSERT INTO User (name, pwddigest, type, picpath, creation_date) VALUES (?, ?, ?, ?, ?)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+        <span class='id identifier rubyid_username'>username</span><span class='comma'>,</span>
+        <span class='id identifier rubyid_password_digest'>password_digest</span><span class='comma'>,</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+        <span class='kw'>nil</span><span class='comma'>,</span>
+        <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+    <span class='rparen'>)</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_last_insert_row_id'>last_insert_row_id</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -903,7 +1934,157 @@
       <div class="method_details ">
   <h3 class="signature " id="database-instance_method">
   
-    #<strong>database</strong>(path)  &#x21d2; <tt>Object</tt> 
+    #<strong>database</strong>  &#x21d2; <tt>SQLite3::Database</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Opens a database file</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>SQLite3::Database</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the database</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 61</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_database'>database</span><span class='lparen'>(</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_db'>db</span> <span class='op'>=</span> <span class='const'>SQLite3</span><span class='op'>::</span><span class='const'>Database</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>db/main.db</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_results_as_hash'>results_as_hash</span> <span class='op'>=</span> <span class='kw'>true</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_db'>db</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="date_string_to_unix-instance_method">
+  
+    #<strong>date_string_to_unix</strong>(date_string)  &#x21d2; <tt>Number</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Converts a date string from an HTML form to an unix timestamp</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>date_string</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the date string from an HTML form</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Number</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The unix timestamp</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+86
+87
+88
+89
+90</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 86</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_date_string_to_unix'>date_string_to_unix</span><span class='lparen'>(</span><span class='id identifier rubyid_date_string'>date_string</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_parsed_date'>parsed_date</span> <span class='op'>=</span> <span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_date_string'>date_string</span><span class='rparen'>)</span>
+
+    <span class='kw'>return</span> <span class='id identifier rubyid_parsed_date'>parsed_date</span><span class='period'>.</span><span class='id identifier rubyid_to_time'>to_time</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete_medium-instance_method">
+  
+    #<strong>delete_medium</strong>(db, medium_id)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -915,19 +2096,27 @@
       <pre class="lines">
 
 
-49
-50
-51
-52
-53</pre>
+621
+622
+623
+624
+625
+626
+627
+628
+629</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 621</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_database'>database</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_db'>db</span> <span class='op'>=</span> <span class='const'>SQLite3</span><span class='op'>::</span><span class='const'>Database</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>db/main.db</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_results_as_hash'>results_as_hash</span> <span class='op'>=</span> <span class='kw'>true</span>
-    <span class='kw'>return</span> <span class='id identifier rubyid_db'>db</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_delete_medium'>delete_medium</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_does_medium_exist'><span class='object_link'><a href="#does_medium_exist-instance_method" title="Model#does_medium_exist (method)">does_medium_exist</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DELETE FROM Media WHERE id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_clean_genres'><span class='object_link'><a href="#clean_genres-instance_method" title="Model#clean_genres (method)">clean_genres</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_clean_authors'><span class='object_link'><a href="#clean_authors-instance_method" title="Model#clean_authors (method)">clean_authors</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Medium is not found.</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1032,21 +2221,23 @@
       <pre class="lines">
 
 
-251
-252
-253
-254
-255
-256
-257
-258</pre>
+329
+330
+331
+332
+333
+334
+335
+336
+337</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 251</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 329</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_review'>delete_review</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='comma'>,</span> <span class='id identifier rubyid_review_id'>review_id</span><span class='rparen'>)</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_does_review_exist'><span class='object_link'><a href="#does_review_exist-instance_method" title="Model#does_review_exist (method)">does_review_exist</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='comma'>,</span> <span class='id identifier rubyid_review_id'>review_id</span><span class='rparen'>)</span>
         <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DELETE FROM Review WHERE id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_review_id'>review_id</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_update_rating'><span class='object_link'><a href="#update_rating-instance_method" title="Model#update_rating (method)">update_rating</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='rparen'>)</span>
         <span class='kw'>return</span> <span class='kw'>true</span>
     <span class='kw'>else</span>
         <span class='kw'>return</span> <span class='kw'>false</span>
@@ -1058,9 +2249,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="display_error-instance_method">
+  <h3 class="signature " id="delete_user-instance_method">
   
-    #<strong>display_error</strong>(status, msg)  &#x21d2; <tt>Nil</tt> 
+    #<strong>delete_user</strong>(db, user_id)  &#x21d2; <tt>Nil</tt> 
   
 
   
@@ -1069,7 +2260,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Displays an error site customized with the error provided</p>
+<p>Deletes a user from the database</p>
 
 
   </div>
@@ -1080,16 +2271,16 @@
   
     <li>
       
-        <span class='name'>the</span>
+        <span class='name'>database</span>
       
       
-        <span class='type'>(<tt>Number</tt>)</span>
+        <span class='type'>(<tt>SQLite3::Database</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>HTTP response status code the error is going to have</p>
+<p>where users are stored</p>
 </div>
       
     </li>
@@ -1105,7 +2296,7 @@
       
         &mdash;
         <div class='inline'>
-<p>error message that will be displayed</p>
+<p>user ID of the to-be deleted user</p>
 </div>
       
     </li>
@@ -1134,15 +2325,214 @@
       <pre class="lines">
 
 
-107
-108
-109</pre>
+712
+713
+714
+715
+716
+717
+718</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 712</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_display_error'>display_error</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='comma'>,</span> <span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:&quot;error&quot;</span><span class='comma'>,</span> <span class='label'>locals:</span> <span class='lbrace'>{</span> <span class='label'>document_title:</span> <span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='label'>error_message:</span> <span class='id identifier rubyid_msg'>msg</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_delete_user'>delete_user</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_does_user_id_exist'><span class='object_link'><a href="#does_user_id_exist-instance_method" title="Model#does_user_id_exist (method)">does_user_id_exist</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DELETE FROM User WHERE id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>User does not exist</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="display_error-instance_method">
+  
+    #<strong>display_error</strong>(db, msg)  &#x21d2; <tt>Nil</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Displays an error site customized with the error provided</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>db</span>
+      
+      
+        <span class='type'>(<tt>SQLite3::Database</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>database where information about users are stored</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>msg</span>
+      
+      
+        <span class='type'>(<tt>Number</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the error message that will be displayed</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+159
+160
+161</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 159</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_display_error'>display_error</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:&quot;error&quot;</span><span class='comma'>,</span> <span class='label'>locals:</span> <span class='lbrace'>{</span> <span class='label'>document_title:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Error</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>error_message:</span> <span class='id identifier rubyid_msg'>msg</span><span class='comma'>,</span> <span class='label'>db:</span> <span class='id identifier rubyid_db'>db</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="does_medium_exist-instance_method">
+  
+    #<strong>does_medium_exist</strong>(db, medium_id)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Checks if a medium exist in the database</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>db</span>
+      
+      
+        <span class='type'>(<tt>SQLite3::Database</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>database where medium is stored</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>medium_id</span>
+      
+      
+        <span class='type'>(<tt>Number</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the id of the medium that is being looked up</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>does it exist?</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+148
+149
+150
+151</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 148</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_does_medium_exist'>does_medium_exist</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span>
+    <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM Media WHERE id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='kw'>return</span> <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1172,7 +2562,7 @@
   
     <li>
       
-        <span class='name'>database</span>
+        <span class='name'>db</span>
       
       
         <span class='type'>(<tt>SQLite3::Database</tt>)</span>
@@ -1181,14 +2571,14 @@
       
         &mdash;
         <div class='inline'>
-<p>where review is stored</p>
+<p>database where review is stored</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>the</span>
+        <span class='name'>media_id</span>
       
       
         <span class='type'>(<tt>Number</tt>)</span>
@@ -1197,14 +2587,14 @@
       
         &mdash;
         <div class='inline'>
-<p>media’s id in the database</p>
+<p>the media’s id in the database</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>the</span>
+        <span class='name'>review_id</span>
       
       
         <span class='type'>(<tt>Number</tt>)</span>
@@ -1213,7 +2603,7 @@
       
         &mdash;
         <div class='inline'>
-<p>review’s id in the database</p>
+<p>the review’s id in the database</p>
 </div>
       
     </li>
@@ -1247,17 +2637,17 @@
       <pre class="lines">
 
 
-62
-63
-64
-65
-66
-67
-68
-69</pre>
+99
+100
+101
+102
+103
+104
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 99</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_does_review_exist'>does_review_exist</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='comma'>,</span> <span class='id identifier rubyid_review_id'>review_id</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_review'><span class='object_link'><a href="#review-instance_method" title="Model#review (method)">review</a></span></span> <span class='op'>=</span> <span class='id identifier rubyid_review'><span class='object_link'><a href="#review-instance_method" title="Model#review (method)">review</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_review_id'>review_id</span><span class='rparen'>)</span>
@@ -1266,107 +2656,6 @@
     <span class='kw'>else</span>
         <span class='kw'>return</span> <span class='kw'>true</span>
     <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="does_user_exist-instance_method">
-  
-    #<strong>does_user_exist</strong>(db, username)  &#x21d2; <tt>Boolean</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Checks if a user with the specified username exist in the database</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>database</span>
-      
-      
-        <span class='type'>(<tt>SQLite3::Database</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>where review is stored</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>the</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>username that is going to be checked</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>if it exist</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-95
-96
-97
-98
-99</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 95</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_does_user_exist'>does_user_exist</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_username'>username</span><span class='rparen'>)</span>
-    <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT id FROM User WHERE name = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_username'>username</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-
-    <span class='kw'>return</span> <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1396,7 +2685,7 @@
   
     <li>
       
-        <span class='name'>database</span>
+        <span class='name'>db</span>
       
       
         <span class='type'>(<tt>SQLite3::Database</tt>)</span>
@@ -1405,14 +2694,14 @@
       
         &mdash;
         <div class='inline'>
-<p>where review is stored</p>
+<p>database where review is stored</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>the</span>
+        <span class='name'>user_id</span>
       
       
         <span class='type'>(<tt>Number</tt>)</span>
@@ -1421,14 +2710,14 @@
       
         &mdash;
         <div class='inline'>
-<p>media’s id in the database</p>
+<p>the media’s id in the database</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>the</span>
+        <span class='name'>media_id</span>
       
       
         <span class='type'>(<tt>Number</tt>)</span>
@@ -1437,7 +2726,7 @@
       
         &mdash;
         <div class='inline'>
-<p>ID belongning to the user that is being checked</p>
+<p>the ID belongning to the user that is being checked</p>
 </div>
       
     </li>
@@ -1471,27 +2760,284 @@
       <pre class="lines">
 
 
-78
-79
-80
-81
-82
-83
-84
-85
-86</pre>
+115
+116
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 115</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_does_user_have_review'>does_user_have_review</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Does user already have review?</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
     <span class='id identifier rubyid_user_reviews'><span class='object_link'><a href="#user_reviews-instance_method" title="Model#user_reviews (method)">user_reviews</a></span></span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM Review WHERE user_id = ? AND media_id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='rparen'>)</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_user_reviews'><span class='object_link'><a href="#user_reviews-instance_method" title="Model#user_reviews (method)">user_reviews</a></span></span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-        <span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>USER </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_user_id'>user_id</span><span class='embexpr_end'>}</span><span class='tstring_content'> DOES NOT HAVE REVIEWS</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-        <span class='kw'>return</span> <span class='kw'>false</span>
-    <span class='kw'>end</span>
+    <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_user_reviews'><span class='object_link'><a href="#user_reviews-instance_method" title="Model#user_reviews (method)">user_reviews</a></span></span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
     <span class='kw'>return</span> <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="does_user_id_exist-instance_method">
+  
+    #<strong>does_user_id_exist</strong>(db, user_id)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Checks if a user with the specified ID exist in the database</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>db</span>
+      
+      
+        <span class='type'>(<tt>SQLite3::Database</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>database where review is stored</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>user_id</span>
+      
+      
+        <span class='type'>(<tt>Number</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the user ID that is going to be checked</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if it exist</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+138
+139
+140
+141</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 138</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_does_user_id_exist'>does_user_id_exist</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
+    <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM User WHERE id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='kw'>return</span> <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="does_username_exist-instance_method">
+  
+    #<strong>does_username_exist</strong>(db, username)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Checks if a user with the specified username exist in the database</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>db</span>
+      
+      
+        <span class='type'>(<tt>SQLite3::Database</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>database where review is stored</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>username</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the username that is going to be checked</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if it exist</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+127
+128
+129
+130</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 127</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_does_username_exist'>does_username_exist</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_username'>username</span><span class='rparen'>)</span>
+    <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT id FROM User WHERE name = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_username'>username</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='kw'>return</span> <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="empty_or_nil-instance_method">
+  
+    #<strong>empty_or_nil</strong>(data)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Checks if data is nil or empty string</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>data</span>
+      
+      
+        <span class='type'>(<tt>String | Nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the data that is going to be checked</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+52
+53
+54
+55
+56</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 52</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_empty_or_nil'>empty_or_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span>
+    <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='op'>||</span> <span class='op'>!</span><span class='id identifier rubyid_data'>data</span>
+
+    <span class='kw'>return</span> <span class='kw'>false</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1513,22 +3059,21 @@
       <pre class="lines">
 
 
-203
-204
-205
-206
-207
-208
-209
-210
-211
-212
-213
-214
-215</pre>
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 203</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 263</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_followings_reviews'>followings_reviews</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_followings'>followings</span> <span class='op'>=</span> <span class='id identifier rubyid_users'><span class='object_link'><a href="#users-instance_method" title="Model#users (method)">users</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_user_id'>user_id</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:following_ids</span><span class='rbracket'>]</span>
@@ -1540,7 +3085,6 @@
     <span class='id identifier rubyid_followings'>followings</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_following'>following</span><span class='op'>|</span> <span class='id identifier rubyid_followings_reviews'>followings_reviews</span> <span class='op'>=</span> <span class='id identifier rubyid_followings_reviews'>followings_reviews</span> <span class='op'>+</span> <span class='id identifier rubyid_user_reviews'><span class='object_link'><a href="#user_reviews-instance_method" title="Model#user_reviews (method)">user_reviews</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_following'>following</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
 
     <span class='id identifier rubyid_followings_reviews'>followings_reviews</span> <span class='op'>=</span> <span class='id identifier rubyid_followings_reviews'>followings_reviews</span><span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_review'><span class='object_link'><a href="#review-instance_method" title="Model#review (method)">review</a></span></span><span class='op'>|</span> <span class='id identifier rubyid_review'><span class='object_link'><a href="#review-instance_method" title="Model#review (method)">review</a></span></span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>creation_date</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>*</span> <span class='op'>-</span><span class='int'>1</span> <span class='rbrace'>}</span>
-
     <span class='kw'>return</span> <span class='id identifier rubyid_followings_reviews'>followings_reviews</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1563,31 +3107,30 @@
       <pre class="lines">
 
 
-159
-160
-161
-162
-163
-164
-165
-166
-167
-168
-169
-170
-171
-172
-173
-174
-175
-176
-177
-178
-179
-180</pre>
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 159</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 220</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_all_media'>get_all_media</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_media'><span class='object_link'><a href="#media-instance_method" title="Model#media (method)">media</a></span></span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM Media</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -1608,7 +3151,6 @@
         <span class='id identifier rubyid_media_return'>media_return</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:genre_ids</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_genres'>genres</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_genre'>genre</span><span class='op'>|</span> <span class='id identifier rubyid_genre'>genre</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
         <span class='id identifier rubyid_media_return'>media_return</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:author_ids</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_authors'>authors</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_author'>author</span><span class='op'>|</span> <span class='id identifier rubyid_author'>author</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
     <span class='kw'>end</span>
-
     <span class='kw'>return</span> <span class='id identifier rubyid_media_return'>media_return</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1631,17 +3173,17 @@
       <pre class="lines">
 
 
-188
-189
-190
-191
-192
-193
-194
-195</pre>
+248
+249
+250
+251
+252
+253
+254
+255</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 188</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 248</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_all_reviews'>get_all_reviews</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_reviews'>reviews</span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM Review WHERE Review.media_id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='rparen'>)</span>
@@ -1650,6 +3192,108 @@
     <span class='id identifier rubyid_reviews'>reviews</span> <span class='op'>=</span> <span class='id identifier rubyid_reviews'>reviews</span><span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_review'><span class='object_link'><a href="#review-instance_method" title="Model#review (method)">review</a></span></span><span class='op'>|</span> <span class='id identifier rubyid_review'><span class='object_link'><a href="#review-instance_method" title="Model#review (method)">review</a></span></span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>creation_date</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>*</span> <span class='op'>-</span><span class='int'>1</span> <span class='rbrace'>}</span>
 
     <span class='kw'>return</span> <span class='id identifier rubyid_reviews'>reviews</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="insert_media_author_relation-instance_method">
+  
+    #<strong>insert_media_author_relation</strong>(db, author_id, medium_id)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 362</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_insert_media_author_relation'>insert_media_author_relation</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_author_id'>author_id</span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_print'>print</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>TRYING TO INSERT NEW RELATION, AUTHOR ID: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_author_id'>author_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>, MEDIUM ID: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_medium_id'>medium_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_media_author_relation'>media_author_relation</span> <span class='op'>=</span>
+        <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span>
+            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM Media_author_relation WHERE author_id = ? AND media_id = ? </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+            <span class='id identifier rubyid_author_id'>author_id</span><span class='comma'>,</span>
+            <span class='id identifier rubyid_medium_id'>medium_id</span>
+        <span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_media_author_relation'>media_author_relation</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+        <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span>
+            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INSERT INTO Media_author_relation (author_id, media_id) VALUES (?, ?)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+            <span class='id identifier rubyid_author_id'>author_id</span><span class='comma'>,</span>
+            <span class='id identifier rubyid_medium_id'>medium_id</span>
+        <span class='rparen'>)</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="insert_media_genre_relation-instance_method">
+  
+    #<strong>insert_media_genre_relation</strong>(db, genre_id, medium_id)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 379</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_insert_media_genre_relation'>insert_media_genre_relation</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_genre_id'>genre_id</span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_media_genre_relation'>media_genre_relation</span> <span class='op'>=</span>
+        <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span>
+            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM Media_genre_relation WHERE genre_id = ? AND media_id = ? </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+            <span class='id identifier rubyid_genre_id'>genre_id</span><span class='comma'>,</span>
+            <span class='id identifier rubyid_medium_id'>medium_id</span>
+        <span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_media_genre_relation'>media_genre_relation</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+        <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INSERT INTO Media_genre_relation (genre_id, media_id) VALUES (?, ?)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_genre_id'>genre_id</span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1671,29 +3315,29 @@
       <pre class="lines">
 
 
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153
-154
-155
-156
-157</pre>
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 138</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 199</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_media'>media</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_sought_media'>sought_media</span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM Media WHERE Media.id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='rparen'>)</span>
@@ -1735,19 +3379,270 @@
       <pre class="lines">
 
 
-182
-183
-184
-185
-186</pre>
+242
+243
+244
+245
+246</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 182</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 242</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_review'>review</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_review_id'>review_id</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_sought_review'>sought_review</span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM Review WHERE Review.id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_review_id'>review_id</span><span class='rparen'>)</span>
     <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_sought_review'>sought_review</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
     <span class='kw'>return</span> <span class='id identifier rubyid_sought_review'>sought_review</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="update_medium-instance_method">
+  
+    #<strong>update_medium</strong>(db, medium_id, updated_medium)  &#x21d2; <tt>Nil</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Updates the specified medium in the database</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>database</span>
+      
+      
+        <span class='type'>(<tt>SQLite3::Database</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>where genres and relations between the genres and the media are stored.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>the</span>
+      
+      
+        <span class='type'>(<tt>Number</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>ID of the medium in the database to be updated</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>the</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>properites of the edited medium</p>
+<ul><li>
+<p>:name [String] the new medium name</p>
+</li><li>
+<p>:type [String] the new medium type (book, song, etc.)</p>
+</li><li>
+<p>:creation_date [String] the medium’s new creation date uploaded through an HTML form</p>
+</li><li>
+<p>:authors [String] the new original authors of the medium</p>
+</li><li>
+<p>:genres [String] the new genres belonging to the medium</p>
+</li><li>
+<p>:img_file [Hash, Nil] the hash of the new img file. It has the structure of a uploaded file through a HTMl form. Can be nil picture should not be changed.</p>
+</li></ul>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 552</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_update_medium'>update_medium</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='comma'>,</span> <span class='id identifier rubyid_updated_medium'>updated_medium</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_empty_or_nil'><span class='object_link'><a href="#empty_or_nil-instance_method" title="Model#empty_or_nil (method)">empty_or_nil</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_updated_medium'>updated_medium</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_empty_or_nil'><span class='object_link'><a href="#empty_or_nil-instance_method" title="Model#empty_or_nil (method)">empty_or_nil</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_updated_medium'>updated_medium</span><span class='lbracket'>[</span><span class='symbol'>:type</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>||</span>
+              <span class='id identifier rubyid_empty_or_nil'><span class='object_link'><a href="#empty_or_nil-instance_method" title="Model#empty_or_nil (method)">empty_or_nil</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_updated_medium'>updated_medium</span><span class='lbracket'>[</span><span class='symbol'>:creation_date</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_empty_or_nil'><span class='object_link'><a href="#empty_or_nil-instance_method" title="Model#empty_or_nil (method)">empty_or_nil</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_updated_medium'>updated_medium</span><span class='lbracket'>[</span><span class='symbol'>:genres</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>||</span>
+              <span class='id identifier rubyid_empty_or_nil'><span class='object_link'><a href="#empty_or_nil-instance_method" title="Model#empty_or_nil (method)">empty_or_nil</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_updated_medium'>updated_medium</span><span class='lbracket'>[</span><span class='symbol'>:authors</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Vissa obligatoriska fält är inte ifyllda.</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_updated_medium'>updated_medium</span><span class='lbracket'>[</span><span class='symbol'>:img_file</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='kw'>nil</span>
+        <span class='id identifier rubyid_old_relative_path'>old_relative_path</span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT picpath FROM Media WHERE id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>picpath</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+
+        <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>./public/img/uploaded_img/media</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_updated_medium'>updated_medium</span><span class='lbracket'>[</span><span class='symbol'>:img_file</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:filename</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+        <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>wb</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span> <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_updated_medium'>updated_medium</span><span class='lbracket'>[</span><span class='symbol'>:img_file</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:tempfile</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+        <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span>
+            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UPDATE Media
+            SET picpath = ? 
+            WHERE id = ?; </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+            <span class='id identifier rubyid_updated_medium'>updated_medium</span><span class='lbracket'>[</span><span class='symbol'>:img_file</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:filename</span><span class='rbracket'>]</span><span class='comma'>,</span>
+            <span class='id identifier rubyid_medium_id'>medium_id</span>
+        <span class='rparen'>)</span>
+
+        <span class='id identifier rubyid_clean_medium_pic'><span class='object_link'><a href="#clean_medium_pic-instance_method" title="Model#clean_medium_pic (method)">clean_medium_pic</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_old_relative_path'>old_relative_path</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='kw'>not</span> <span class='id identifier rubyid_old_relative_path'>old_relative_path</span> <span class='op'>==</span> <span class='kw'>nil</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UPDATE Media
+            SET name = ?, type = ?, creation_date = ? 
+            WHERE id = ?; </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+        <span class='id identifier rubyid_updated_medium'>updated_medium</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span>
+        <span class='id identifier rubyid_updated_medium'>updated_medium</span><span class='lbracket'>[</span><span class='symbol'>:type</span><span class='rbracket'>]</span><span class='comma'>,</span>
+        <span class='id identifier rubyid_date_string_to_unix'><span class='object_link'><a href="#date_string_to_unix-instance_method" title="Model#date_string_to_unix (method)">date_string_to_unix</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_updated_medium'>updated_medium</span><span class='lbracket'>[</span><span class='symbol'>:creation_date</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='comma'>,</span>
+        <span class='id identifier rubyid_medium_id'>medium_id</span>
+    <span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_author_ids'>author_ids</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+
+    <span class='id identifier rubyid_updated_medium'>updated_medium</span><span class='lbracket'>[</span><span class='symbol'>:authors</span><span class='rbracket'>]</span>
+        <span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+        <span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_author'>author</span><span class='op'>|</span>
+            <span class='id identifier rubyid_author_id'>author_id</span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT id FROM Author WHERE name = ? </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_author'>author</span><span class='rparen'>)</span>
+            <span class='kw'>next</span> <span class='kw'>if</span> <span class='id identifier rubyid_author_ids'>author_ids</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_author_id'>author_id</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+            <span class='kw'>if</span> <span class='id identifier rubyid_author_id'>author_id</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+                <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INSERT INTO Author (name) VALUES (?)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_author'>author</span><span class='rparen'>)</span>
+                <span class='id identifier rubyid_author_id'>author_id</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_last_insert_row_id'>last_insert_row_id</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+                <span class='comment'>#puts(&quot;AUTHOR ID: #{author_id}&quot;)
+</span>            <span class='kw'>end</span>
+            <span class='id identifier rubyid_author_ids'>author_ids</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='id identifier rubyid_author_id'>author_id</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+            <span class='id identifier rubyid_insert_media_author_relation'><span class='object_link'><a href="#insert_media_author_relation-instance_method" title="Model#insert_media_author_relation (method)">insert_media_author_relation</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_author_id'>author_id</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span>
+        <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_clean_authors'><span class='object_link'><a href="#clean_authors-instance_method" title="Model#clean_authors (method)">clean_authors</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_author_ids'>author_ids</span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span>
+
+    <span class='comment'># HANDLE GENRES
+</span>    <span class='id identifier rubyid_genre_ids'>genre_ids</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_updated_medium'>updated_medium</span><span class='lbracket'>[</span><span class='symbol'>:genres</span><span class='rbracket'>]</span>
+        <span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+        <span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_genre'>genre</span><span class='op'>|</span>
+            <span class='id identifier rubyid_genre_id'>genre_id</span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT id FROM Genre WHERE name = ? </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_genre'>genre</span><span class='rparen'>)</span>
+            <span class='kw'>next</span> <span class='kw'>if</span> <span class='id identifier rubyid_genre_ids'>genre_ids</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_genre_id'>genre_id</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+            <span class='kw'>if</span> <span class='id identifier rubyid_genre_id'>genre_id</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+                <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INSERT INTO Genre (name) VALUES (?)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_genre'>genre</span><span class='rparen'>)</span>
+                <span class='id identifier rubyid_genre_id'>genre_id</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_last_insert_row_id'>last_insert_row_id</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+            <span class='kw'>end</span>
+
+            <span class='id identifier rubyid_genre_ids'>genre_ids</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='id identifier rubyid_genre_id'>genre_id</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+            <span class='id identifier rubyid_insert_media_genre_relation'><span class='object_link'><a href="#insert_media_genre_relation-instance_method" title="Model#insert_media_genre_relation (method)">insert_media_genre_relation</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_genre_id'>genre_id</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span>
+        <span class='kw'>end</span>
+    <span class='id identifier rubyid_clean_genres'><span class='object_link'><a href="#clean_genres-instance_method" title="Model#clean_genres (method)">clean_genres</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_genre_ids'>genre_ids</span><span class='comma'>,</span> <span class='id identifier rubyid_medium_id'>medium_id</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1831,16 +3726,16 @@
       <pre class="lines">
 
 
+282
+283
+284
+285
+286
 287
-288
-289
-290
-291
-292
-293</pre>
+288</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 287</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 282</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_rating'>update_rating</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_ratings'>ratings</span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT rating FROM Review WHERE media_id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='rparen'>)</span>
@@ -1973,27 +3868,36 @@
       <pre class="lines">
 
 
-227
-228
-229
-230
-231
-232
-233
-234
-235
-236
-237
-238
-239
-240
-241
-242</pre>
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 227</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 300</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_review'>update_review</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='comma'>,</span> <span class='id identifier rubyid_review_id'>review_id</span><span class='comma'>,</span> <span class='id identifier rubyid_updated_review'>updated_review</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_empty_or_nil'><span class='object_link'><a href="#empty_or_nil-instance_method" title="Model#empty_or_nil (method)">empty_or_nil</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_updated_review'>updated_review</span><span class='lbracket'>[</span><span class='symbol'>:edited_review_desc</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>||</span>
+              <span class='id identifier rubyid_empty_or_nil'><span class='object_link'><a href="#empty_or_nil-instance_method" title="Model#empty_or_nil (method)">empty_or_nil</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_updated_review'>updated_review</span><span class='lbracket'>[</span><span class='symbol'>:edited_review_rating</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Alla fält är inte ifyllda.</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_does_review_exist'><span class='object_link'><a href="#does_review_exist-instance_method" title="Model#does_review_exist (method)">does_review_exist</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='comma'>,</span> <span class='id identifier rubyid_review_id'>review_id</span><span class='rparen'>)</span>
         <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span>
             <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UPDATE Review
@@ -2004,9 +3908,90 @@
             <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='comma'>,</span>
             <span class='id identifier rubyid_review_id'>review_id</span>
         <span class='rparen'>)</span>
+        <span class='id identifier rubyid_update_rating'><span class='object_link'><a href="#update_rating-instance_method" title="Model#update_rating (method)">update_rating</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_media_id'>media_id</span><span class='rparen'>)</span>
         <span class='kw'>return</span> <span class='kw'>true</span>
     <span class='kw'>else</span>
         <span class='kw'>return</span> <span class='kw'>false</span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="update_user-instance_method">
+  
+    #<strong>update_user</strong>(db, user_id, updated_user)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 677</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_update_user'>update_user</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='comma'>,</span> <span class='id identifier rubyid_updated_user'>updated_user</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_does_user_id_exist'><span class='object_link'><a href="#does_user_id_exist-instance_method" title="Model#does_user_id_exist (method)">does_user_id_exist</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_password'>password</span> <span class='op'>=</span> <span class='id identifier rubyid_updated_user'>updated_user</span><span class='lbracket'>[</span><span class='symbol'>:password</span><span class='rbracket'>]</span>
+        <span class='id identifier rubyid_password_confirmation'>password_confirmation</span> <span class='op'>=</span> <span class='id identifier rubyid_updated_user'>updated_user</span><span class='lbracket'>[</span><span class='symbol'>:password_confirmation</span><span class='rbracket'>]</span>
+        <span class='kw'>if</span> <span class='id identifier rubyid_password'>password</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_password'>password</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_password_confirmation'>password_confirmation</span>
+            <span class='id identifier rubyid_validate_password'><span class='object_link'><a href="#validate_password-instance_method" title="Model#validate_password (method)">validate_password</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_password'>password</span><span class='comma'>,</span> <span class='id identifier rubyid_password_confirmation'>password_confirmation</span><span class='rparen'>)</span>
+            <span class='id identifier rubyid_password_digest'>password_digest</span> <span class='op'>=</span> <span class='const'>BCrypt</span><span class='op'>::</span><span class='const'>Password</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_password'>password</span><span class='rparen'>)</span>
+            <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UPDATE User SET pwddigest = ? WHERE id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_password_digest'>password_digest</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
+        <span class='kw'>end</span>
+
+        <span class='id identifier rubyid_username'>username</span> <span class='op'>=</span> <span class='id identifier rubyid_updated_user'>updated_user</span><span class='lbracket'>[</span><span class='symbol'>:username</span><span class='rbracket'>]</span>
+        <span class='kw'>if</span> <span class='id identifier rubyid_username'>username</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_username'>username</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&gt;</span> <span class='int'>0</span>
+            <span class='id identifier rubyid_validate_username'><span class='object_link'><a href="#validate_username-instance_method" title="Model#validate_username (method)">validate_username</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_updated_user'>updated_user</span><span class='lbracket'>[</span><span class='symbol'>:username</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+            <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UPDATE User SET name = ? WHERE id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_username'>username</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
+        <span class='kw'>end</span>
+
+        <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UPDATE User SET type = ? WHERE id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_updated_user'>updated_user</span><span class='lbracket'>[</span><span class='symbol'>:type</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
+
+        <span class='kw'>if</span> <span class='id identifier rubyid_updated_user'>updated_user</span><span class='lbracket'>[</span><span class='symbol'>:user_pic</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_updated_user'>updated_user</span><span class='lbracket'>[</span><span class='symbol'>:user_pic</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_write_image'><span class='object_link'><a href="#write_image-instance_method" title="Model#write_image (method)">write_image</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_updated_user'>updated_user</span><span class='lbracket'>[</span><span class='symbol'>:user_pic</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:filename</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>profile</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_updated_user'>updated_user</span><span class='lbracket'>[</span><span class='symbol'>:user_pic</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:tempfile</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+            <span class='id identifier rubyid_old_user_pic'>old_user_pic</span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT picpath FROM User WHERE id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>picpath</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+            <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UPDATE User SET picpath = ? WHERE id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_updated_user'>updated_user</span><span class='lbracket'>[</span><span class='symbol'>:user_pic</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:filename</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
+            <span class='id identifier rubyid_clean_user_pic'><span class='object_link'><a href="#clean_user_pic-instance_method" title="Model#clean_user_pic (method)">clean_user_pic</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_old_user_pic'>old_user_pic</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_old_user_pic'>old_user_pic</span>
+        <span class='kw'>end</span>
+    <span class='kw'>else</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>User does not exist</span><span class='tstring_end'>&quot;</span></span>
     <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2029,14 +4014,14 @@
       <pre class="lines">
 
 
-197
-198
-199
-200
-201</pre>
+257
+258
+259
+260
+261</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 197</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 257</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_user_reviews'>user_reviews</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_print'>print</span><span class='lparen'>(</span><span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
@@ -2049,53 +4034,234 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="users-instance_method">
+  <h3 class="signature " id="usernames_to_ids-instance_method">
   
-    #<strong>users</strong>(db, user_ids)  &#x21d2; <tt>Object</tt> 
-  
-
+    #<strong>usernames_to_ids</strong>(db, usernames)  &#x21d2; <tt>Array&lt;Number&gt;</tt> 
   
 
   
-</h3><table class="source_code">
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Takes usernames and finds their ids</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>db</span>
+      
+      
+        <span class='type'>(<tt>SQLite3::Database</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the database where users are stored</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>usernames</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the usernames belonging to ids</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;Number&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the user ids that the usernames belong to</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134
-135
-136</pre>
+73
+74
+75
+76
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 73</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_users'>users</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_user_ids'>user_ids</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_usernames_to_ids'>usernames_to_ids</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_usernames'>usernames</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_user_ids'>user_ids</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_usernames'>usernames</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_username'>username</span><span class='op'>|</span>
+        <span class='id identifier rubyid_user_ids'>user_ids</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT id FROM User WHERE name = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_username'>username</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_user_ids'>user_ids</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="users-instance_method">
+  
+    #<strong>users</strong>(db, user_ids = nil)  &#x21d2; <tt>Array&lt;Hash&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Fetches information about users from the database</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>db</span>
+      
+      
+        <span class='type'>(<tt>SQLite3::Database</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>database where information about users are stored</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>user_ids</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;Number&gt;</tt>, <tt>Nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the ids of the users which are being looked up in the database. If nil all of the users in the database will be looked up</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;Hash&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the information about users</p>
+<ul><li>
+<p>“id” [Number] the id of a user</p>
+</li></ul>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 170</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_users'>users</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_user_ids'>user_ids</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_users'>users</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_user_ids'>user_ids</span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT id FROM User</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_id_obj'>id_obj</span><span class='op'>|</span> <span class='id identifier rubyid_id_obj'>id_obj</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_user_ids'>user_ids</span> <span class='op'>==</span> <span class='kw'>nil</span>
     <span class='id identifier rubyid_user_ids'>user_ids</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_user_id'>user_id</span><span class='op'>|</span>
+        <span class='id identifier rubyid_print'>print</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>USER ID: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_user_id'>user_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
         <span class='id identifier rubyid_sought_user'>sought_user</span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM User WHERE User.id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
         <span class='kw'>next</span> <span class='kw'>if</span> <span class='id identifier rubyid_sought_user'>sought_user</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
 
@@ -2116,8 +4282,233 @@
         <span class='id identifier rubyid_sought_user_complete'>sought_user_complete</span><span class='lbracket'>[</span><span class='symbol'>:follower_ids</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_followers'>followers</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_follower'>follower</span><span class='op'>|</span> <span class='id identifier rubyid_follower'>follower</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
         <span class='id identifier rubyid_users'>users</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='id identifier rubyid_sought_user_complete'>sought_user_complete</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
-
+    <span class='id identifier rubyid_print'>print</span><span class='lparen'>(</span><span class='id identifier rubyid_users'>users</span><span class='rparen'>)</span>
     <span class='kw'>return</span> <span class='id identifier rubyid_users'>users</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="validate_login-instance_method">
+  
+    #<strong>validate_login</strong>(db, username, password)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 720</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_validate_login'>validate_login</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_username'>username</span><span class='comma'>,</span> <span class='id identifier rubyid_password'>password</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Användarnamn eller lösenord är felaktigt.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_does_username_exist'><span class='object_link'><a href="#does_username_exist-instance_method" title="Model#does_username_exist (method)">does_username_exist</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_username'>username</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_user_id'>user_id</span> <span class='op'>=</span> <span class='id identifier rubyid_usernames_to_ids'><span class='object_link'><a href="#usernames_to_ids-instance_method" title="Model#usernames_to_ids (method)">usernames_to_ids</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_username'>username</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_password_digest'>password_digest</span> <span class='op'>=</span> <span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT pwddigest FROM User WHERE id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pwddigest</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+
+    <span class='kw'>if</span> <span class='const'>BCrypt</span><span class='op'>::</span><span class='const'>Password</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_password_digest'>password_digest</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='id identifier rubyid_password'>password</span>
+        <span class='kw'>return</span> <span class='id identifier rubyid_user_id'>user_id</span>
+    <span class='kw'>else</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Användarnamn eller lösenord är felaktigt.</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="validate_password-instance_method">
+  
+    #<strong>validate_password</strong>(password, password_confirmation)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+641
+642
+643
+644
+645
+646
+647
+648</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 641</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_validate_password'>validate_password</span><span class='lparen'>(</span><span class='id identifier rubyid_password'>password</span><span class='comma'>,</span> <span class='id identifier rubyid_password_confirmation'>password_confirmation</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Lösenorden matchar inte.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_password'>password</span> <span class='op'>!=</span> <span class='id identifier rubyid_password_confirmation'>password_confirmation</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Lösenordet måste vara minst 6 karraktärer långt</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_password'>password</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&lt;</span> <span class='int'>6</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Lösenordet får max var 32 karraktärer långt</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_password'>password</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&gt;</span> <span class='int'>32</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_password'>password</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[^a-zA-Z\d@$#!?%^&amp;*]</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Lösenordet innehåller förbjudna karraktärer. Endast bokstäver, siffror och symbolerna @$#!?%^&amp;* är tillåtna.</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="validate_username-instance_method">
+  
+    #<strong>validate_username</strong>(db, username)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+631
+632
+633
+634
+635
+636
+637
+638
+639</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 631</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_validate_username'>validate_username</span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_username'>username</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>En användare med det användarnamnet existerar redan.</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_does_username_exist'><span class='object_link'><a href="#does_username_exist-instance_method" title="Model#does_username_exist (method)">does_username_exist</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_db'>db</span><span class='comma'>,</span> <span class='id identifier rubyid_username'>username</span><span class='rparen'>)</span>
+    <span class='comment'># VALIDATING
+</span>    <span class='kw'>if</span> <span class='id identifier rubyid_username'>username</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[^a-zA-Z\d]</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Användarnamnet innehåller förbjudna karraktärer. Endast a-z och siffror är tillåtna.</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Användarnamnet måste vara minst 2 karraktärer långt</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_username'>username</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&lt;</span> <span class='int'>2</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Användarnamnet får max var 32 karraktärer långt</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_username'>username</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&gt;</span> <span class='int'>32</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="write_image-instance_method">
+  
+    #<strong>write_image</strong>(filename, folder, content)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Writes a img file uploaded thorugh an HTML form to a folder on the server</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>the</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>filename of the image file</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>the</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>name of the folder in the “uploaded_img” directory where the image should be written to</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>the</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>image content uploaded through an HTML form</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+396
+397
+398
+399</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'model.rb', line 396</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_write_image'>write_image</span><span class='lparen'>(</span><span class='id identifier rubyid_filename'>filename</span><span class='comma'>,</span> <span class='id identifier rubyid_folder'>folder</span><span class='comma'>,</span> <span class='id identifier rubyid_content'>content</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>./public/img/uploaded_img/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_folder'>folder</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span>
+    <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>wb</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span> <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2129,7 +4520,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Apr 10 00:49:57 2023 by
+  Generated on Wed May 10 15:08:04 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.1.2).
 </div>

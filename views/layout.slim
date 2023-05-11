@@ -8,7 +8,12 @@ html lang="en"
   body
     nav
     h1 IMDJ
-    a href="/login" Logga in
-    a href="/users/new" Skapa ett konto
+    - if session[:user_id] == nil 
+      a href="/login" Logga in
+      a href="/users/new" Skapa ett konto
+    - else 
+      - username = user_ids_to_names(db, [session[:user_id]])[0]
+      p = "Du är inloggad som #{username}"
+      a href="/logout" Logga ut
     hr
     ==yield

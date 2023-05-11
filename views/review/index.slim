@@ -3,6 +3,6 @@ h2 Alla recensioner:
    p = "Author: #{user_ids_to_names(db, [review["user_id"]])}"
    p = "Rating: #{review["rating"]}"
    p = "Medium: #{media_id_to_name(db, review["media_id"])}"
-   p = "Content: #{review["content"]}"
+   a href="/media/#{review["media_id"]}/reviews/#{review["id"]}" Content: #{review["content"]}
    p = "Creation date: #{format_unix_timestamp(review["creation_date"])}"
    hr 

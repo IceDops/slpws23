@@ -6,7 +6,7 @@ h2 Alla medium
         - medium_pic_path = "/img/uploaded_img/media/" + medium["picpath"] 
 
     img src=medium_pic_path alt="Mediet '#{medium["name"]}':s omslagsbild"/
-    p = "Mediumets namn: #{medium["name"]}"
+    a href="/media/#{medium["id"]}" Mediumets namn: #{medium["name"]}
     p = "Mediumets användarbetyg: #{medium["total_rating"]}"
     p = "Mediumtes typ: #{medium["type"]}"
     p = "Media genre: #{genre_ids_to_names(db, medium[:genre_ids])}"
